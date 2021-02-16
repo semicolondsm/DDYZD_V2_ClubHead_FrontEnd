@@ -1,4 +1,5 @@
 import React, { createContext, useState } from "react";
+import UserData from "../../components/interfaces/user";
 
 const UserContext = createContext<any>({
   user_state: "",
@@ -6,7 +7,7 @@ const UserContext = createContext<any>({
 });
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  function setUserState(state: string){
+  function setUserState(state: UserData){
     setUser((prevState: any) => {
         return {
           ...prevState,
