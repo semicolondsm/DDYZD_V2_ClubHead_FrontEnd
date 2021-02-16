@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import auth from "../../../utils/api/auth"
+import UserData from "../../interfaces/user"
 
 export const onSilentRefresh = () => {
     auth.refreshToken()
@@ -9,11 +10,12 @@ export const onSilentRefresh = () => {
  }
  
  export const OnLoginSuccess = async (res:any) => {
-     localStorage.setItem("accessToken",res.data.accessToken)
-     localStorage.setItem("refreshToken",res.data.refreshToken)
-     setTimeout(onSilentRefresh, res.data.accessExp*900);
-     //const { data } = await user.getProfile();
-     //localStorage.setItem("userCache",JSON.stringify(data))
+    localStorage.setItem("accessToken",res.data.access_token)
+    localStorage.setItem("refreshToken",res.data.refresh_token)
+    setTimeout(onSilentRefresh, 72000000);
+    const gcn : any = await auth.getGCN();
+    const { data } : { data : UserData} = await auth.getProfile(gcn.data.gcn)
+    localStorage.setItem("userCache",JSON.stringify(data))
  }
 function Callback(params: any){
     const onLogin = () => {
