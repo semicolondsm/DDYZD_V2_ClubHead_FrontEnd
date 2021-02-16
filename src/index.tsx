@@ -2,11 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import GlobalStyled from './styles/GlobalStyled';
+import GlobalProvider from './utils/context';
 
 ReactDOM.render(
-  <React.StrictMode>
+  <GlobalProvider>
+    <GlobalStyled></GlobalStyled>
     <App />
-  </React.StrictMode>,
+  </GlobalProvider>,
   document.getElementById('root')
 );
 
