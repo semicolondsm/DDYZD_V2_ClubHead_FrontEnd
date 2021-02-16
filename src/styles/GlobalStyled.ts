@@ -5,5 +5,6 @@ export default createGlobalStyle`
         padding: 0;
         list-style: none;
         text-decoration: none;
+        box-sizing: border-box;
     }
 `
