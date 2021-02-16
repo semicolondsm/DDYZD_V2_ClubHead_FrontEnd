@@ -8,6 +8,7 @@ export const HeaderWrapper=styled.header`
     margin: 0 auto;
     max-width: 1080px;
     height: 55px;
+    padding: 0 15px;
 
 `
 export const LogoWrapper=styled.div`
@@ -17,6 +18,12 @@ export const LogoWrapper=styled.div`
         display: flex;
         font-size: 14px;
         align-items: center;
+        & img{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
     }
 
 `

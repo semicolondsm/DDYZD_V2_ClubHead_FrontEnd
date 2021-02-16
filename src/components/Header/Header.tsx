@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import UserContext from "../../utils/context/user";
 import * as S from "./styles"
-function Header(){
+function Header({data} : {data : any}){
     const { user_state } = useContext(UserContext)
     function Logout(){
         localStorage.clear();
@@ -13,8 +13,8 @@ function Header(){
             <S.HeaderWrapper>
                 <S.LogoWrapper>
                     <Link to="/">
-                        <S.Logo/>
-                        <h3>대동여지도</h3>
+                        <img src={"https://api.semicolon.live/file/" + data?.clubimage} alt="club_image"></img>
+                        <h3>{data?.clubname}</h3>
                     </Link>
                 </S.LogoWrapper>
                 <S.MenuWrapper>
