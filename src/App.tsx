@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Callback, { onSilentRefresh } from './components/Auth/Callback/Callback';
 import Login from './components/Auth/Login/Login';
 import ClubList from './components/ClubList/ClubList';
+import ClubManagement from './components/ClubManagement/ClubManagement';
 import Header from './components/Header/Header';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route exact path="/callback" component={Callback}></Route>
       <Route exact path="/login" component={Login}></Route>
       <Route exact path="/" component={ClubList}></Route>
+      <Route exact path="/club/:id" component={ClubManagement}></Route> 
     </Router>
   );
 }
