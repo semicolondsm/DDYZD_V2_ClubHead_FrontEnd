@@ -1,8 +1,8 @@
 import axios, { AxiosError } from 'axios'
 
 const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_URL,
-    timeout: 3000
+    baseURL: "https://api.semicolon.live/",
+    timeout: 5000
 });
 instance.interceptors.request.use(
     function (config) {
