@@ -27,5 +27,32 @@ export default{
                 description : desc
             }
         })
+    },
+    addFeed(club_id : number,content : string, isPin : boolean){
+        return request({
+            url : `/feed/${club_id}`,
+            method : 'post',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+            data : {
+                content : content,
+                isPin : isPin
+            }
+        })
+    },
+    addRecru(club_id : number, closeAt : Date, major : string[]){
+        return request({
+            url : `/club/${club_id}/recruitment`,
+            method : 'post',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+            data : {
+                major : major,
+                closeAt : closeAt,
+
+            }
+        })
     }
 }
