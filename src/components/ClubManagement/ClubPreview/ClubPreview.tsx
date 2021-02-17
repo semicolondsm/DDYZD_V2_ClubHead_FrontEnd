@@ -6,7 +6,7 @@ function ClubPreview({club_id} : {club_id : number}){
     return(
         <>
             <ClubHeader club_id={club_id}></ClubHeader>
-            <ClubUtil></ClubUtil>
+            <ClubUtil club_id={club_id}></ClubUtil>
             <ClubFeed club_id={club_id}></ClubFeed>
         </>
     )
