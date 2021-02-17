@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import club from "../../../../utils/api/club";
+import ModalContext from "../../../../utils/context/modals";
 import ClubIfnoData from "../../../interfaces/clubinfo";
 import * as S from "./styles"
 function ClubHeader({club_id} : {club_id : number}){
     const [club_info,setInfo] = useState<ClubIfnoData>();
     const [description, setDesc] = useState<string>("이곳을 클릭하여 설명을 추가해주세요.");
+    const { setModalState } = useContext(ModalContext);
     useEffect(()=>{
         club.getInfo(club_id)
        .then((res)=>{
@@ -18,7 +20,7 @@ function ClubHeader({club_id} : {club_id : number}){
     }
     return(
         <S.Wrapper>
-            <img alt="back_image" src={`https://api.semicolon.live/file/${club_info?.backimage}`}></img>
+            <img onClick={()=>setModalState({state : "banner", club_id : club_id})} alt="back_image" src={`https://api.semicolon.live/file/${club_info?.backimage}`}></img>
             <S.InfoWrapper>
                 <S.Center>
                     <img alt="club_image" src={`https://api.semicolon.live/file/${club_info?.clubimage}`}></img>
