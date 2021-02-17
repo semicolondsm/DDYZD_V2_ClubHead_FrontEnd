@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import Modals from './components/Modals/Modals';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyled from './styles/GlobalStyled';
 import GlobalProvider from './utils/context';
@@ -8,6 +9,7 @@ import GlobalProvider from './utils/context';
 ReactDOM.render(
   <GlobalProvider>
     <GlobalStyled></GlobalStyled>
+    <Modals></Modals>
     <App />
   </GlobalProvider>,
   document.getElementById('root')
