@@ -18,7 +18,7 @@ function ClubList(){
                     <S.NowClub>관리할 동아리를 선택해주세요.</S.NowClub>
                     <S.ClubItemWrapper>
                         {
-                            user_state?.clubs.map((i : Clubs)=>(
+                            user_state?.clubs?.map((i : Clubs)=>(
                                 <li key={i.club_id}><Link to={`/club/${i.club_id}`}>{i.club_name}</Link></li>
                             ))
                         }
