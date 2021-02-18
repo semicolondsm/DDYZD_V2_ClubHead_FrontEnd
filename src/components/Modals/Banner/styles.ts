@@ -5,8 +5,9 @@ export const Wrapper=styled.div`
     background: white;
     padding: 0 15px;
     border-radius: 10px;
-    width: 450px;
     display: flex;
+    width: 100%;
+    max-width: 1024px;
     flex-direction: column;
     & h3{
         border-bottom: 1px solid #0000001a;
@@ -15,5 +16,21 @@ export const Wrapper=styled.div`
         text-align: center;
         padding: 15px;
         margin-bottom: 10px;
+    }
+    & img{
+        width: 100%;
+        max-width: 1024px;
+        object-fit: cover;
+        height: 300px;
+    }
+    & button{
+        margin-top: 10px;
+        border: none;
+        background: #350871;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 20px;
     }
 `
