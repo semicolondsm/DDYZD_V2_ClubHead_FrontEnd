@@ -3,18 +3,40 @@ import club from "../../../utils/api/club";
 import ModalContext from "../../../utils/context/modals";
 import * as S from "./styles"
 function Feed({club_id} : {club_id : number}){
-    const [state,setState] = useState(false);
     const [content, setContent] = useState("");
-    const { setModalState } = useContext(ModalContext)
-    function checkHandler(e : any){
-        setState(e.target.checked)
+    const [files,setFiles] = useState<FormData | null>(null);
+    const { setModalState } = useContext(ModalContext);
+    function fileHandler(e : any){
+        let fd = new FormData();
+        let temp=0
+        for(let i=0;i<e.target.files.length;i++){
+            fd.append("files", e.target.files[i]);
+            temp+=e.target.files[i].size/1024/1024;
+        }
+        console.log(temp);
+        setFiles(fd)
     }
     function onSubmit(){
-        club.addFeed(club_id, content, state)
+        club.addFeed(club_id, content)
         .then((res)=>{
-            setContent("");
-            window.location.href=`/club/${club_id}`
+            if(files) {
+                club.addFile(res.data.feedId, files)
+                .then((res)=>{
+                    setContent("");
+                    setFiles(null);
+                    window.location.href=`/club/${club_id}`
+                    setModalState(null);
+                })
+                .catch((e)=>alert(e))
+            }
+            else{
+                setContent("");
+                setFiles(null);
+                window.location.href=`/club/${club_id}`
+                setModalState(null);
+            }
         })
+        .catch((e)=>alert(e))
     }
     useEffect(()=>{
         console.log(club_id);
@@ -23,11 +45,8 @@ function Feed({club_id} : {club_id : number}){
         <S.FeedWrapper>
             <h3>게시물 만들기</h3>
             <textarea onChange={(e)=>setContent(e.target.value)} placeholder="이곳을 눌러 새로운 게시물을 등록해보세요."></textarea>
-            <label>
-                <input onChange={checkHandler} type="checkbox"></input>
-                <p>고정</p>
-            </label>
-            <button onClick={()=>{ onSubmit(); setModalState(null);}}>게시</button>
+            <input accept="image/*" onChange={fileHandler} type="file" multiple></input>
+            <button onClick={onSubmit}>게시</button>
         </S.FeedWrapper>
     )
 }
