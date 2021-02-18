@@ -28,17 +28,29 @@ export default{
             }
         })
     },
-    addFeed(club_id : number,content : string, isPin : boolean){
+    addFeed(club_id : number,content : string){
         return request({
             url : `/feed/${club_id}`,
             method : 'post',
             headers : {
                 "Authorization" : `Bearer ${localStorage.accessToken}`
             },
+            
             data : {
                 content : content,
-                isPin : isPin
             }
+        })
+    },
+    addFile(feed_id: number, files : FormData){
+        return request({
+            method : 'post',
+            url : `/feed/${feed_id}/medium`,
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`,
+                "Content-Type" : 'multipart/form-data',
+            },
+            data : files,
+        
         })
     },
     addRecru(club_id : number, closeAt : Date, major : string[]){
