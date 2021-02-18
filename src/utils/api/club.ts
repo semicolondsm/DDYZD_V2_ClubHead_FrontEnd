@@ -7,13 +7,36 @@ export default{
             method : 'get',
             params : {
                 page : page
-            }
+            },
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
         })
     },
     getInfo(club_id : number){
         return request({
             url : `/club/${club_id}/info`,
             method: 'get'
+        })
+    },
+    setBanner(club_id : number, file : FormData){
+        return request({
+            url : `/club/${club_id}/banner`,
+            method: 'post',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+            data : file,
+        })
+    },
+    setProfile(club_id : number, file : FormData){
+        return request({
+            url : `/club/${club_id}/profile`,
+            method: 'post',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+            data : file,
         })
     },
     setDesc(club_id : number, desc : string){
@@ -28,14 +51,22 @@ export default{
             }
         })
     },
+    delFeed(feed_id : number){
+        return request({
+            url: `/feed/${feed_id}`,
+            method: 'delete',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+        })
+    },
     addFeed(club_id : number,content : string){
         return request({
             url : `/feed/${club_id}`,
             method : 'post',
             headers : {
                 "Authorization" : `Bearer ${localStorage.accessToken}`
-            },
-            
+            },  
             data : {
                 content : content,
             }
@@ -52,6 +83,16 @@ export default{
             data : files,
         
         })
+    },
+    setFin(feed_id : number){
+        return request({
+            method: 'put',
+            url : `/feed/${feed_id}/pin`,
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+        })
+
     },
     addRecru(club_id : number, closeAt : Date, major : string[]){
         return request({
