@@ -1,16 +1,16 @@
 import * as S from "./styles"
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import FeedData from "../../../../interfaces/feed";
+import ModalContext from "../../../../../utils/context/modals";
 const fileURL="https://api.semicolon.live"
 function FeedCard({props} : {props: FeedData}){
     const [page, setPage] = useState<number>(0);
     const [start,setStart] = useState<number>(0);
     const [end, setEnd] = useState<number>(0);
-    const [flags, setFlags] = useState<number>(props.flags); 
     const slideRef = useRef<HTMLDivElement>(null);
+    const { setModalState } = useContext(ModalContext);
     function prev(){
         if(page>0) setPage(page-1);
-        
     }
     function next(){
        if(page<props.media.length-1) setPage(page+1);
@@ -55,27 +55,11 @@ function FeedCard({props} : {props: FeedData}){
                 <S.CardHeaderContent>
                     <div style={{display: "flex", alignItems: "center"}}>
                         <div><strong>{props.clubName}</strong></div>
-                        <svg style={{marginLeft: "2px"}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-                        <g id="그룹_550" data-name="그룹 550" transform="translate(-1283 -160)">
-                            <circle id="타원_133" data-name="타원 133" cx="8" cy="8" r="8" transform="translate(1283 160)" fill={props.pin ? "#350871" : "#c8c8c8"}/>
-                            <g id="pin" transform="translate(1286.801 162)">
-                            <g id="그룹_414" data-name="그룹 414">
-                                <path id="패스_85" data-name="패스 85" d="M89.533,0a4.108,4.108,0,0,0-4.2,4,3.857,3.857,0,0,0,.5,1.9l3.466,5.97a.269.269,0,0,0,.459,0L93.23,5.9a3.857,3.857,0,0,0,.5-1.9A4.108,4.108,0,0,0,89.533,0Zm0,6a2.054,2.054,0,0,1-2.1-2,2.1,2.1,0,0,1,4.2,0A2.054,2.054,0,0,1,89.533,6Z" transform="translate(-85.333)" fill="none" stroke="#fff" strokeWidth="1"/>
-                            </g>
-                            </g>
-                        </g>
-                        </svg>
+                        <S.PinIco $pin={props.pin}></S.PinIco>
                     </div>
                     <S.CreatedAt>{date(props.uploadAt)}</S.CreatedAt>
                 </S.CardHeaderContent>
-                <svg style={{padding: "15px 10px"}} xmlns="http://www.w3.org/2000/svg" width="45" height="35" viewBox="0 0 25 5">
-                <g id="그룹_511" data-name="그룹 511" transform="translate(-1065 -1035)">
-                    <circle id="타원_91" data-name="타원 91" cx="2.5" cy="2.5" r="2.5" transform="translate(1065 1035)" fill="#3d3d3d"/>
-                    <circle id="타원_92" data-name="타원 92" cx="2.5" cy="2.5" r="2.5" transform="translate(1075 1035)" fill="#3d3d3d"/>
-                    <circle id="타원_93" data-name="타원 93" cx="2.5" cy="2.5" r="2.5" transform="translate(1085 1035)" fill="#3d3d3d"/>
-                </g>
-                </svg>
-
+                <S.FeedMenuIco onClick={()=>setModalState({state: "feedmenu", feed_id:props.feedId, owner : props.owner})}></S.FeedMenuIco> 
             </S.CardHeader>
             <S.CardSection>
                 <S.Content>{props.content}</S.Content>
@@ -88,22 +72,10 @@ function FeedCard({props} : {props: FeedData}){
                             }
                         </S.SliderImages>
                         <S.Prev onClick={prev}>
-                            <svg id="버튼" xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 40 41">
-                            <ellipse id="타원_106" data-name="타원 106" cx="20" cy="20.5" rx="20" ry="20.5" fill="#c8c8c8" opacity="0.5"/>
-                            <rect id="사각형_628" data-name="사각형 628" width="2" height="18" rx="1" transform="translate(13.199 21.339) rotate(-135)" fill="#fff"/>
-                            <rect id="사각형_629" data-name="사각형 629" width="2" height="18" rx="1" transform="translate(25.927 31.663) rotate(135)" fill="#fff"/>
-                            </svg>
+                            <S.PrevIco></S.PrevIco>
                         </S.Prev>
                         <S.Next onClick={next}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="26" viewBox="0 0 40 41">
-                        <g id="버튼" transform="translate(-1050 -1554)">
-                            <ellipse id="타원_106" data-name="타원 106" cx="20" cy="20.5" rx="20" ry="20.5" transform="translate(1050 1554)" fill="#c8c8c8" opacity="0.5"/>
-                            <rect id="사각형_628" data-name="사각형 628" width="2" height="18" rx="1" transform="translate(1064.073 1562.611) rotate(-45)" fill="#fff"/>
-                            <rect id="사각형_629" data-name="사각형 629" width="2" height="18" rx="1" transform="translate(1076.801 1572.935) rotate(45)" fill="#fff"/>
-                        </g>
-                        </svg>
-
-
+                            <S.NextIco></S.NextIco>
                         </S.Next>
                     </S.Slider>
                     : null
@@ -119,7 +91,7 @@ function FeedCard({props} : {props: FeedData}){
                     </S.SliderState>
                 </S.CardUtil>
                 <S.CardState>
-                    <div>FLAGS {flags}개</div>
+                    <div>FLAGS {props.flags}개</div>
                 </S.CardState>
             </S.CardBottom>
         </li>
