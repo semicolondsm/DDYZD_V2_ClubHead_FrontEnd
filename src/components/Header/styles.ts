@@ -53,6 +53,6 @@ export const MenuWrapper=styled.ul`
 
 
 export const Logo = styled(LogoIco)`
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
 `

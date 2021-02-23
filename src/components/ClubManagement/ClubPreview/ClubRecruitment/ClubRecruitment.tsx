@@ -6,15 +6,18 @@ interface RecruitmentData {
     closeat : Date,
     startat : Date,
 }
-function getFormatDate(date : Date){
-    var year = date.getFullYear();
-    var month : number | string = (1 + date.getMonth());
+function getFormatDate(rdate : Date){
+    let date = new Date(rdate);
+    let year = new Date(date).getFullYear();
+    let month : number | string = (1 + date.getMonth());
     month = month >= 10 ? month : '0' + month;
-    var day : number | string = date.getDate();
+    let day : number | string = date.getDate();
     day = day >= 10 ? day : '0' + day;
     return year + '-' + month + '-' + day;
 }
-function getDday(start : Date, end : Date){
+function getDday(rstart : Date, rend : Date){
+    let start = new Date(rstart);
+    let end = new Date(rend);
     let gap = start.getTime() - end.getTime();
     return Math.floor(gap / (1000 * 60 * 60 * 24)) * -1;
 }
