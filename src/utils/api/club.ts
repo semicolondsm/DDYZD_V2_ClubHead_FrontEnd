@@ -107,5 +107,23 @@ export default{
 
             }
         })
+    },
+    getRecruitment(club_id : number){
+        return request({
+            url : `/club/${club_id}/recruitment`,
+            method: 'get',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+        })
+    },
+    getMembers(club_id: number){
+        return request({
+            url : `/club/${club_id}/member`,
+            method : 'get',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+        })
     }
 }
