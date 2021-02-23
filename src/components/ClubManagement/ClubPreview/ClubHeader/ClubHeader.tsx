@@ -20,10 +20,16 @@ function ClubHeader({club_id} : {club_id : number}){
     }
     return(
         <S.Wrapper>
-            <img onClick={()=>setModalState({state : "banner", club_id : club_id})} alt="back_image" src={`https://api.semicolon.live/file/${club_info?.backimage}`}></img>
+            <S.BannerWrapper onClick={()=>setModalState({state : "banner", club_id : club_id})}>
+                <img alt="back_image" src={`https://api.semicolon.live/file/${club_info?.backimage}`}></img>
+                <div>배너 사진 변경</div>
+            </S.BannerWrapper>
             <S.InfoWrapper>
                 <S.Center>
-                    <img onClick={()=>setModalState({state : "profile", club_id : club_id})} alt="club_image" src={`https://api.semicolon.live/file/${club_info?.clubimage}`}></img>
+                    <div>
+                        <img onClick={()=>setModalState({state : "profile", club_id : club_id})} alt="club_image" src={`https://api.semicolon.live/file/${club_info?.clubimage}`}></img>
+                        <div></div>
+                    </div>
                     <p>{club_info?.clubname}
                         <br/>
                         <input onBlur={onDesc} onChange={(e)=>setDesc(e.target.value)} value={description}></input>
