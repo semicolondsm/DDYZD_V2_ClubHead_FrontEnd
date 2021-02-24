@@ -6,7 +6,7 @@ function ClubApplicantMemberList({club_id} : {club_id : number}){
     },[])
     return(
         <S.Wrapper>
-            <h3>신청자</h3>
+            <h3>신청내역</h3>
         </S.Wrapper>
     )
 }
