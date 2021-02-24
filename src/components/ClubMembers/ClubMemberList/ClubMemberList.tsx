@@ -15,7 +15,7 @@ function ClubMemberList({club_id} : {club_id : number}){
             <h3>동아리원 {members.length}명</h3>
             {
                 members.map((i : MemberData)=>(
-                    <li key={i.user_id}>
+                    <li key={i.gcn}>
                         <div>
                             <img src={i.profile_image} alt="프로필"></img>
                             <p>{i.gcn} | {i.user_name}</p>    
