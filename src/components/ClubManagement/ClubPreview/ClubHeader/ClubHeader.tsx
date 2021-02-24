@@ -28,7 +28,7 @@ function ClubHeader({club_id} : {club_id : number}){
                 <S.Center>
                     <img onClick={()=>setModalState({state : "profile", club_id : club_id})} alt="club_image" src={`https://api.semicolon.live/file/${club_info?.clubimage}`}></img>
                     <p>{club_info?.clubname}
-                        <br/>
+                        <br></br>
                         <input onBlur={onDesc} onChange={(e)=>setDesc(e.target.value)} value={description}></input>
                     </p>
                 </S.Center>

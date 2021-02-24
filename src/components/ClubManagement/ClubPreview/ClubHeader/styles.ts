@@ -28,7 +28,7 @@ export const Center=styled.div`
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -65px;
+    bottom: -72px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,7 +38,6 @@ export const Center=styled.div`
         height: 60px;
         border-radius: 50%;
         border: 1px solid #c8c8c8;
-        margin-bottom: 5px;
     }
     & > div > div{
         position: absolute;
