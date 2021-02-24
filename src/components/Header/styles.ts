@@ -9,7 +9,6 @@ export const HeaderWrapper=styled.header`
     max-width: 1080px;
     height: 55px;
     padding: 0 15px;
-
 `
 export const LogoWrapper=styled.div`
     cursor: pointer;

@@ -9,7 +9,7 @@ function Header(){
         window.location.href="/"
     }
     return(
-        <div style={{width: "100%"}}>
+        <div style={{width: "100%", boxShadow: "0px 3px 3px #00000029"}}>
             <S.HeaderWrapper>
                 <S.LogoWrapper>
                     <Link to="/">
