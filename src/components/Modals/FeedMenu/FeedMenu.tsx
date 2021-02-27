@@ -10,7 +10,7 @@ function FeedMenu({feed_id, owner} : {feed_id : number, owner : boolean}){
             setModalState("")
             window.location.href=window.location.href;
         })
-        .catch((e)=>e.response.status===403 && alert("클럽장이 아닙니다."))
+        .catch((e)=>e.response?.status===403 && alert("클럽장이 아닙니다."))
         
     }
     function Delete(){
