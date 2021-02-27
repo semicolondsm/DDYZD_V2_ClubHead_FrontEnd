@@ -1,0 +1,28 @@
+import { useEffect } from "react";
+import { ChatData } from "../../../interfaces";
+import Apply from "./Apply/Apply";
+import ClubChat from "./ClubChat/ClubChat";
+import InterviewResult from "./InterviewResult/InterviewResult";
+import InterviewSchedule from "./InterviewSchedule/InterviewSchedule";
+import UserChat from "./UserChat/UserChat";
+
+function ChatComponents({data, info} : {info : any, data : ChatData}){
+    return(
+        <>
+            {
+                data?.user_type==="U"?
+                    <UserChat info={info} data={data}></UserChat>
+                : data?.user_type==="C"? 
+                    <ClubChat data={data}></ClubChat>
+                : data?.user_type==="H1"? 
+                    <Apply info={info} data={data}></Apply>
+                : data?.user_type==="H2"? 
+                    <InterviewSchedule data={data}></InterviewSchedule>
+                : data?.user_type==="H3"? 
+                    <InterviewResult data={data}></InterviewResult>
+                : null
+            } 
+        </>
+    )
+}
+export default ChatComponents;
