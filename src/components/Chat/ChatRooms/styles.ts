@@ -37,9 +37,24 @@ export const RoomListWrapper=styled.div`
         align-items: center;
     }
 `
+export const LastMessage=styled.div`
+    font-size: 12px !important;
+    color: #A4A4A4;
+    display: flex;
+    align-items: center;
+    & p{
+        font-size: 12px !important;
+        max-width: 150px;
+        overflow:hidden;
+        white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+`
 export const RoomList=styled.ul`
-    & li{
+    max-height: calc( 100vh - 180px );
+    overflow-y: scroll;
+    & a{
         padding: 8px 10px;
+        color: black;
         margin: 0 5px;
         cursor: pointer;
         display: flex;
