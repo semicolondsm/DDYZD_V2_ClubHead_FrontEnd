@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { ChatData } from "../../../interfaces";
 import Apply from "./Apply/Apply";
 import ClubChat from "./ClubChat/ClubChat";
