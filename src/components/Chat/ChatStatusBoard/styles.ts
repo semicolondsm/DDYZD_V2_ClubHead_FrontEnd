@@ -10,9 +10,12 @@ export const Wrapper=styled.div`
     }
 `
 export const Header=styled.div`
-    display: flex;
-    align-items: center;
-    margin: 0 15px;
+    & a{
+        display: flex;
+        align-items: center;
+        margin: 0 15px;
+        color: black;
+    }
     & img{
         border-radius: 50%;
         object-fit: cover;
@@ -32,7 +35,8 @@ export const Bottom=styled.div`
     }
 `
 export const List=styled.ul`
-    & li{
+    & a{
+        color: black;
         padding: 8px 10px;
         margin: 5px;
         border-radius: 10px;
