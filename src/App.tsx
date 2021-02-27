@@ -19,6 +19,7 @@ function App() {
       <Route exact path="/login" component={Login}></Route>
       <Route exact path="/" component={ClubList}></Route>
       <Route exact path="/club/:id/chat" component={Chat}></Route>
+      <Route exact path="/club/:id/chat/:chatId" component={Chat}></Route>
       <Route exact path="/club/:id" component={ClubManagement}></Route>
     </Router>
   );
