@@ -5,5 +5,5 @@ export default interface ClubIfnoData{
     clubname: string,
     clubtag: string[],
     description: string,
-    owner: boolean
+    owner: boolean,
 }

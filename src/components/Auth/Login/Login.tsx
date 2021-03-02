@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const Oauthurl="http://193.123.237.232/external/login?redirect_url=http://localhost:3000/callback&client_id=2866a041a4594f3fba25f62126e49557"
+const Oauthurl="https://developer.dsmkr.com/external/login?redirect_url=https://ddyzd.dsmkr.com/callback&client_id=3b11a5ab276b40a79708f719ee1eb6cb"
 function Login(){
     useEffect(()=>{
         window.location.href=Oauthurl;

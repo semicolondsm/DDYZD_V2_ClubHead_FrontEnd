@@ -35,7 +35,13 @@ function ChatStatusBoard({ club_id } : { club_id : number}){
                                         <p>{i.name}</p>
                                     </div>
                                     <div>
-                                        대충아이콘
+                                        {
+                                            i.status==="S" ? 
+                                                <S.ClockIco></S.ClockIco>
+                                            : i.status==="R" ?
+                                                <S.ConfirmIco></S.ConfirmIco>
+                                            : <S.BellIco></S.BellIco>
+                                        }
                                     </div>
                                 </NavLink>
                             </li>

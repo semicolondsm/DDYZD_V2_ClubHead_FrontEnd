@@ -1,4 +1,8 @@
 import styled from "styled-components"
+import { ReactComponent as Confirm } from "../../../assets/images/confirm.svg"
+import { ReactComponent as Clock } from "../../../assets/images/statusclock.svg"
+import { ReactComponent as Bell } from "../../../assets/images/bell.svg"
+
 export const Wrapper=styled.div`
     width: 100%;
     height: calc( 100vh - 55px );
@@ -41,6 +45,7 @@ export const List=styled.ul`
         margin: 5px;
         border-radius: 10px;
         display: flex;
+        justify-content: space-between;
         align-items: center;
         cursor: pointer;
         & p{
@@ -50,6 +55,9 @@ export const List=styled.ul`
         & div{
             display: flex;
             align-items: center;
+            & svg{
+                margin: 0 2px;
+            }
         }
         & img{
             width: 35px;
@@ -62,4 +70,13 @@ export const List=styled.ul`
             background: #F5F5F5;
         }
     }
+`
+export const ConfirmIco=styled(Confirm)`
+    cursor: pointer;
+`
+export const BellIco=styled(Bell)`
+    cursor: pointer;
+`
+export const ClockIco=styled(Clock)`
+    cursor: pointer;
 `

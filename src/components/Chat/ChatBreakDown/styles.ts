@@ -97,7 +97,7 @@ export const InterviewDropDownMenu=styled.div`
     top: -80px;
     padding: 10px;
     min-width: 180px;
-    right: 40px;
+    right: 10px;
     background: white;
     border-radius: 6px;
     overflow: hidden;
@@ -114,7 +114,7 @@ export const InterviewScheduleMenu=styled.div`
     top: -170px;
     padding: 10px;
     min-width: 300px;
-    right: 10px;
+    right: 40px;
     background: white;
     border-radius: 6px;
     overflow: hidden;

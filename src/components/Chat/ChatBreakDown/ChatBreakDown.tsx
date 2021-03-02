@@ -34,6 +34,7 @@ function ChatBreakDown({ roomToken, chatId } : { roomToken: string, chatId : num
         let hours=select==="pm" ? startTime==="12" ? 0 : parseInt(startTime)+12 : startTime;
         const date = new Date(`${startDate.replace("-", "/")} ${hours}:${startMinute}`);
         let result = window.confirm(`${date.getMonth()+1}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분 (으)로 확정하시겠습니까?`);
+        
         result && sendMessage({type : "N" ,date : `${date.getMonth()+1}월 ${date.getDate()}일 ${select==="pm" ? "오후" : "오전"} ${startTime}시 ${date.getMinutes()}분` ,location : location})
     }
     function InterviewSubmit(state : boolean){
@@ -79,8 +80,8 @@ function ChatBreakDown({ roomToken, chatId } : { roomToken: string, chatId : num
             </S.ChatList>
             <S.Bottom onSubmit={onSubmit}>
                 <input onChange={(e)=>setValue(e.target.value)} value={value} placeholder="메세지 입력"></input>
-                <S.ClockIco onClick={()=>modal ? setModal(null) : setModal("R")}></S.ClockIco>
-                <S.NotificationIco onClick={()=>modal ? setModal(null) : setModal("N")}></S.NotificationIco>
+                <S.ClockIco onClick={()=>modal ? setModal(null) : setModal("N")}></S.ClockIco>
+                <S.NotificationIco onClick={()=>modal ? setModal(null) : setModal("R")}></S.NotificationIco>
                 {
                     modal==="R" ? 
                         <S.InterviewDropDownMenu>
