@@ -3,6 +3,7 @@ import ModalContext from "../../utils/context/modals";
 import Banner from "./Banner/Banner";
 import Feed from "./Feed/Feed";
 import FeedMenu from "./FeedMenu/FeedMenu";
+import Hongbo from "./Hongbo/Hongbo";
 import Profile from "./Profile/Profile";
 import Recruitment from "./Recruitment/Recruitment";
 import * as S from "./styles"
@@ -24,6 +25,8 @@ function Modals(){
                                 <Recruitment club_id={modal_state.club_id}></Recruitment>
                             : modal_state.state==="feedmenu" ? 
                                 <FeedMenu owner={modal_state.owner} feed_id={modal_state.feed_id}></FeedMenu>
+                            : modal_state.state==="hongbo" ? 
+                                <Hongbo club_id={modal_state.club_id}></Hongbo>
                             : null
                         }
                         <S.Overlay onClick={()=>setModalState(null)}></S.Overlay>

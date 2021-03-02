@@ -39,6 +39,16 @@ export default{
             data : file,
         })
     },
+    setHongbo(club_id : number, file : FormData){
+        return request({
+            url : `/club/${club_id}/hongbo`,
+            method: 'post',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+            data : file,
+        })
+    },
     setDesc(club_id : number, desc : string){
         return request({
             url : `/club/${club_id}/description`,

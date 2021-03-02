@@ -12,6 +12,7 @@ function ClubUtil({club_id} : {club_id : number}){
                 <li onClick={()=>history.push(path+"/chat")}><S.memberIco/><p>멤버</p></li>
                 <div>
                     <li onClick={()=>setModalState({state : "feed", club_id : club_id})}><S.feedIco/><p>글쓰기</p></li>
+                    <li onClick={()=>setModalState({state : "hongbo", club_id : club_id})}><S.feedIco/><p>홍보물</p></li>
                     <li onClick={()=>setModalState({state : "recruitment", club_id : club_id})}><S.recruitmentIco/><p>모집공고</p></li>
                 </div>
             </S.UtilWrapper>
