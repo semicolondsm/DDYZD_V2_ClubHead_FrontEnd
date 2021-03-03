@@ -67,6 +67,19 @@ export const InterviewScheduleWrapper=styled.div`
     & > input {
         margin-bottom: 10px;
     } 
+    & label{
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        margin-bottom: 5px;
+        & input[type="checkbox"]{
+            width : unset;
+            margin-right: 5px;
+        }
+        & p{
+            font-size: 13px;
+        }
+    }
     & div{
         display: flex;
         align-items: center;
@@ -111,7 +124,7 @@ export const InterviewDropDownMenu=styled.div`
 `
 export const InterviewScheduleMenu=styled.div`
     position: absolute;
-    top: -170px;
+    top: -190px;
     padding: 10px;
     min-width: 300px;
     right: 40px;

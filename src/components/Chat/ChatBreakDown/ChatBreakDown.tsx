@@ -14,8 +14,9 @@ function ChatBreakDown({ roomToken, chatId } : { roomToken: string, chatId : num
     const [select ,setSelect] = useState<string>("am");
     const [location ,setLocation] = useState<string>("");
     const [startTime, setStartTime] = useState<string>("0");
-    const [startDate, setStartDate] = useState<string>("0");
+    const [startDate, setStartDate] = useState<string>(localStorage.date && localStorage.date);
     const [startMinute, setStartMinute] = useState<string>("0");
+    const [fix,setFix] = useState<boolean>(localStorage.date ? true : false);
     const messagesEndRef = useRef<any>(null)
     useEffect(()=>{
         setLoading(false);
@@ -30,12 +31,16 @@ function ChatBreakDown({ roomToken, chatId } : { roomToken: string, chatId : num
         if(value!=="") sendMessage({ msg : value })
         setValue("");
     }
+    useEffect(()=>{
+        console.log(startDate);
+    },[startDate])
     function ScheduleSubmit(){
         let hours=select==="pm" ? startTime==="12" ? 0 : parseInt(startTime)+12 : startTime;
         const date = new Date(`${startDate.replace("-", "/")} ${hours}:${startMinute}`);
         let result = window.confirm(`${date.getMonth()+1}월 ${date.getDate()}일 ${date.getHours()}시 ${date.getMinutes()}분 (으)로 확정하시겠습니까?`);
-        
         result && sendMessage({type : "N" ,date : `${date.getMonth()+1}월 ${date.getDate()}일 ${select==="pm" ? "오후" : "오전"} ${startTime}시 ${date.getMinutes()}분` ,location : location})
+        if(fix) localStorage.setItem("date", startDate);
+        else localStorage.removeItem("date");
     }
     function InterviewSubmit(state : boolean){
         let result = window.confirm(`면접결과를 정말로 ( ${state ? "합격" : "실패"} ) (으)로 확정하시겠습니까?`);
@@ -98,14 +103,18 @@ function ChatBreakDown({ roomToken, chatId } : { roomToken: string, chatId : num
                             <h3>면접일정</h3>
                             <S.InterviewScheduleWrapper>
                                 <input onChange={(e)=>setLocation(e.target.value)} value={location} placeholder="면접장소"></input>
-                                <input onChange={(e)=>setStartDate(e.target.value)} type="date"></input>
+                                <input onChange={(e)=>setStartDate(e.target.value)} value={startDate} type="date"></input>
+                                <label>
+                                    <p>날짜 고정</p>
+                                    <input onChange={(e)=>setFix(e.target.checked)} checked={fix} type="checkbox"/>
+                                </label>
                                 <div>
                                     <select onChange={(e)=>setSelect(e.target.value)} value={select}>
                                         <option value="am">오전</option>
                                         <option value="pm">오후</option>
                                     </select>
                                     <input max="12" min="1" onChange={hourHandler} value={startTime}/>시 
-                                    <input max="60" min="0" onChange={minuteHandler} value={startMinute}/>분
+                                    <input max="59" min="0" onChange={minuteHandler} value={startMinute}/>분
                                     <button onClick={ScheduleSubmit}><S.DateConfirmIco/></button>
                                 </div>
                             </S.InterviewScheduleWrapper>
