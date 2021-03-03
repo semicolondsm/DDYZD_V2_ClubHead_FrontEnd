@@ -8,7 +8,6 @@ function Feed({club_id} : {club_id : number}){
     const [files,setFiles] = useState<FormData | null>(null);
     const [loading, setLoading] = useState<boolean>(false); 
     const { setModalState } = useContext(ModalContext);
-    const dispatch=useFeedDispatch();
     function fileHandler(e : any){
         let fd = new FormData();
         let temp=0
