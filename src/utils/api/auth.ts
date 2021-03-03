@@ -12,7 +12,7 @@ export default{
     },
     postToken(code : string){
         return axios({
-            url : `http://developer-api.dsmkr.com/dsmauth/token`,
+            url : `https://developer-api.dsmkr.com/dsmauth/token`,
             method : 'post',
             data:{
                 client_id : 'ab840667ddcd41dc81b29f8f128a0e66',
