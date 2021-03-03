@@ -25,7 +25,7 @@ export default{
         return request({
             url : `/users/token`,
             method :'get',
-            data : {
+            headers : {
                 'access-token' : `Bearer ${token}`
             }
         })
