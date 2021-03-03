@@ -10,12 +10,6 @@ import {
   GET_ROOM_LIST_ERROR,
 } from "./types";
 
-import {
-  RoomList,
-  Chattings,
-  ApplicantType,
-} from "../../components/interfaces/chat";
-
 const loadingState = {
   loading: true,
   data: null,

@@ -1,4 +1,4 @@
-import ChatType from "./index";
+import { ChatData } from "./index";
 
 interface RoomType {
   roomid: number;
@@ -19,7 +19,7 @@ export interface RoomList {
 
 export interface Chattings {
   roomid: number;
-  Chattings: ChatType[];
+  Chattings: ChatData[];
 }
 
 export interface ApplicantType {
