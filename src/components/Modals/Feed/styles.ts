@@ -37,3 +37,13 @@ export const FeedWrapper=styled.div`
         margin-bottom: 20px;
     }
 `
+export const ButtonDisable=styled.button`
+    margin-top: 10px;
+    border: none;
+    background: #eaeaea !important;
+    color: black !important;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px;
+`
