@@ -12,14 +12,25 @@ interface RoomType {
   index: number;
 }
 
-interface RoomList {
+export interface RoomList {
   club_section: string[] | string;
   rooms: RoomType[];
 }
 
-interface Chattings {
+export interface Chattings {
   roomid: number;
   Chattings: ChatType[];
+}
+
+export interface ApplicantType {
+  roomid: number;
+  name: string;
+  image: string;
+  lastdate: Date;
+  lastmessage: string;
+  isread: boolean;
+  status: "U" | "C" | "H1" | "H2" | "H3" | "H4";
+  index: number;
 }
 
 interface stateRoom {
@@ -34,7 +45,14 @@ interface stateChat {
   loading: boolean;
 }
 
+interface stateApplicant {
+  error: boolean;
+  data: ApplicantType[] | null;
+  loading: boolean;
+}
+
 export interface ChatAllType {
   RoomList: stateRoom;
   ChatList: stateChat;
+  ApplicantList: stateApplicant;
 }

@@ -13,6 +13,11 @@ const initialState: ChatAllType = {
     data: null,
     loading: false,
   },
+  ApplicantList: {
+    error: false,
+    data: null,
+    loading: false,
+  },
 };
 
 const ChatStateContext = createContext(null);

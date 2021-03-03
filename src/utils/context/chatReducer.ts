@@ -10,26 +10,50 @@ import {
   GET_ROOM_LIST_ERROR,
 } from "./types";
 
+import {
+  RoomList,
+  Chattings,
+  ApplicantType,
+} from "../../components/interfaces/chat";
+
+const loadingState = {
+  loading: true,
+  data: null,
+  error: false,
+};
+
+const success = <DataType>(data: DataType) => ({
+  loading: false,
+  data,
+  error: false,
+});
+
+const error = (error: Error) => ({
+  loading: false,
+  data: null,
+  error: error,
+});
+
 export default function (state: any, action: any) {
   switch (action.type) {
     case GET_APPLICANT_LIST:
-      return { ...state };
+      return { ...state, ApplicantList: loadingState };
     case GET_APPLICANT_LIST_SUCCESS:
-      return { ...state };
+      return { ...state, ApplicantList: success(action.data) };
     case GET_APPLICANT_LIST_ERROR:
-      return { ...state };
+      return { ...state, ApplicantList: error(action.error) };
     case GET_CHAT_LIST:
-      return { ...state };
+      return { ...state, ChatList: loadingState };
     case GET_CHAT_LIST_SUCCESS:
-      return { ...state };
+      return { ...state, ChatList: success(action.data) };
     case GET_CHAT_LIST_ERROR:
-      return { ...state };
+      return { ...state, ChatList: error(action.error) };
     case GET_ROOM_LIST:
-      return { ...state };
+      return { ...state, RoomList: loadingState };
     case GET_ROOM_LIST_SUCCESS:
-      return { ...state };
+      return { ...state, RoomList: success(action.data) };
     case GET_ROOM_LIST_ERROR:
-      return { ...state };
+      return { ...state, RoomList: error(action.error) };
     default:
       throw new Error(`Unhanded action type: ${action.type}`);
   }
