@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 
 const instance = axios.create({
     baseURL: "https://api.semicolon.live/",
-    timeout: 50000,
+    timeout: 500000,
     maxContentLength: 1000000000,
     maxBodyLength : 1000000000,
 });
