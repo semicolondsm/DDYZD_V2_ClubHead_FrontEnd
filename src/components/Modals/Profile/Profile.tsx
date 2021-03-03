@@ -4,6 +4,7 @@ import * as S from "./styles"
 function Profile({club_id} : {club_id : number}){
     const [file, setFile] = useState<File>();
     const [preview,setPreview] = useState<string | ArrayBuffer>("");
+    const [loading, setLoading] = useState<boolean>(false); 
     function fileHandler(e : any){
         console.log(e.target.files[0])
         const reader = new FileReader();
@@ -14,11 +15,16 @@ function Profile({club_id} : {club_id : number}){
         setFile(e.target.files[0])
     }
     function onSubmit(e : any){
+        setLoading(true);
         const fd=new FormData();
         file && fd.append("file", file)
         club.setProfile(club_id, fd)
         .then((res)=>window.location.href=window.location.href)
-        .catch((e)=>e.response.status===403 && alert("클럽장이 아닙니다."))
+        .catch((e)=>{ 
+            if(e.response.status===403) {
+            alert("클럽장이 아닙니다.");
+            setLoading(false);
+        }})
     }
     return(
         <S.Wrapper>
@@ -29,7 +35,11 @@ function Profile({club_id} : {club_id : number}){
                     <img src={preview}></img>
                 : null
             }
-            <button onClick={onSubmit}>프로필 사진 변경</button>
+            {
+                !loading ?
+                    <button onClick={onSubmit}>프로필 사진 변경</button>
+                : <S.ButtonDisable>올라가는중...</S.ButtonDisable>
+            }
         </S.Wrapper>
     )
 }
