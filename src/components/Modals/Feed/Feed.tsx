@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import club from "../../../utils/api/club";
+import { useFeedDispatch } from "../../../utils/context/feedProvider";
 import ModalContext from "../../../utils/context/modals";
 import * as S from "./styles"
 function Feed({club_id} : {club_id : number}){
@@ -7,6 +8,7 @@ function Feed({club_id} : {club_id : number}){
     const [files,setFiles] = useState<FormData | null>(null);
     const [loading, setLoading] = useState<boolean>(false); 
     const { setModalState } = useContext(ModalContext);
+    const dispatch=useFeedDispatch();
     function fileHandler(e : any){
         let fd = new FormData();
         let temp=0
@@ -26,7 +28,7 @@ function Feed({club_id} : {club_id : number}){
                 .then((res)=>{
                     setContent("");
                     setFiles(null);
-                    window.location.href=`/club/${club_id}`
+                    //window.location.href=`/club/${club_id}`
                     setModalState(null);
                     setLoading(false);
                 })

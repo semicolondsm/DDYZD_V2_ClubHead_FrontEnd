@@ -1,5 +1,5 @@
 import { createContext, useReducer, useContext } from "react";
-import chatReducer from "./chatReducer";
+import chatReducer from "./reducers/chatReducer";
 import { ChatAllType } from "../../components/interfaces/chat";
 
 const initialState: ChatAllType = {
@@ -35,7 +35,7 @@ export function ChatProvider({ children }: any) {
 }
 
 export function useChatState() {
-  const state = useContext(ChatStateContext);
+  const state : any = useContext(ChatStateContext);
   if (!state) {
     throw new Error("Cannot find UsersProvider");
   }

@@ -1,3 +1,4 @@
+import { FeedList } from "../../../components/ClubManagement/ClubPreview/ClubFeed/styles";
 import {
   GET_FEED_LIST,
   GET_FEED_LIST_SUCCESS,
@@ -7,7 +8,7 @@ import {
 
 const loadingState = {
   loading: true,
-  data: null,
+  data: [],
   error: false,
 };
 
@@ -32,14 +33,9 @@ export default function (state: any, action: any) {
     case GET_FEED_LIST_ERROR:
       return { ...state, FeedList: error(action.error) };
     case PUSH_FEED_LIST:
-      const FeedList = state.FeedList;
-      FeedList.push(action.data);
       return {
         ...state,
-        FeedList: {
-          ...state.FeedList,
-          FeedList,
-        },
+        FeedList: {...state.FeedList, data : [...state.FeedList.data, ...action.data] },
       };
     default:
       throw new Error(`Unhanded action type: ${action.type}`);
