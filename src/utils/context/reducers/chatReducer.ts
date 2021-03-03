@@ -8,7 +8,7 @@ import {
   GET_ROOM_LIST,
   GET_ROOM_LIST_SUCCESS,
   GET_ROOM_LIST_ERROR,
-} from "./types";
+} from "../types";
 
 const loadingState = {
   loading: true,
