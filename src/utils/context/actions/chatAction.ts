@@ -8,9 +8,9 @@ import {
   GET_ROOM_LIST,
   GET_ROOM_LIST_SUCCESS,
   GET_ROOM_LIST_ERROR,
-} from "./types";
+} from "../types";
 
-import { useChatState, useChatDispatch } from "./chatProvider";
+import { useChatState, useChatDispatch } from "../chatProvider";
 
 export async function getApplicant() {}
 

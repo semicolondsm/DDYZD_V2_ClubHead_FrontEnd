@@ -3,7 +3,7 @@ import {
   GET_FEED_LIST_SUCCESS,
   GET_FEED_LIST_ERROR,
   PUSH_FEED_LIST,
-} from "./types";
+} from "../types";
 
 const loadingState = {
   loading: true,

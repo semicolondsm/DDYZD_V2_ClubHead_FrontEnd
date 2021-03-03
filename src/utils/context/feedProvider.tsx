@@ -1,5 +1,5 @@
 import { createContext, useReducer, useContext } from "react";
-import FeedReducer from "./FeedReducer";
+import FeedReducer from "./reducers/FeedReducer";
 import { FeedType } from "../../components/interfaces/feed";
 
 const initialState: FeedType = {
