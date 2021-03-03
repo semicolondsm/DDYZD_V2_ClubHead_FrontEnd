@@ -1,15 +1,18 @@
 import { createContext, useReducer, useContext } from "react";
 import chatReducer from "./chatReducer";
-import { RoomList, Chattings } from "../../components/interfaces/chat";
-
-interface ChatAllType {
-  RoomList: RoomList[];
-  ChatList: Chattings[];
-}
+import { ChatAllType } from "../../components/interfaces/chat";
 
 const initialState: ChatAllType = {
-  RoomList: [],
-  ChatList: [],
+  RoomList: {
+    error: false,
+    data: null,
+    loading: false,
+  },
+  ChatList: {
+    error: false,
+    data: null,
+    loading: false,
+  },
 };
 
 const ChatStateContext = createContext(null);
