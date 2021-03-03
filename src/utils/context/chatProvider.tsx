@@ -1,5 +1,5 @@
 import { createContext, useReducer, useContext } from "react";
-import chatReducer from "./chatReducer";
+import chatReducer from "./reducers/chatReducer";
 import { ChatAllType } from "../../components/interfaces/chat";
 
 const initialState: ChatAllType = {
