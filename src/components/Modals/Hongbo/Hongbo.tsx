@@ -1,5 +1,5 @@
 import imageCompression from "browser-image-compression";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import club from "../../../utils/api/club";
 import * as S from "./styles"
 function Hongbo({club_id} : {club_id : number}){
@@ -36,6 +36,10 @@ function Hongbo({club_id} : {club_id : number}){
             setLoading(false);
         }})
     }
+    useEffect(()=>{
+        club.getHongbo(club_id)
+        .then((res)=>setPreview("https://api.semicolon.live/file/" + res.data.hongbo))
+    },[])
     return(
         <S.Wrapper>
             <h3>홍보물 등록</h3>
