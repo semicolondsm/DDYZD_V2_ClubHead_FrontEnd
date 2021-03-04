@@ -1,19 +1,28 @@
 import { useState } from "react";
-import { InputFiles } from "typescript";
+import imageCompression from "browser-image-compression";
 import club from "../../../utils/api/club";
 import * as S from "./styles"
 function Banner({club_id} : {club_id : number}){
     const [file, setFile] = useState<File>();
     const [loading, setLoading] = useState<boolean>(false); 
     const [preview,setPreview] = useState<string | ArrayBuffer>("");
-    function fileHandler(e : any){
-        console.log(e.target.files[0])
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            reader.result && setPreview(reader.result);
+    async function fileHandler(e : any){
+        let file = e.target.files[0];	
+        const options = { 
+            maxSizeMB: 2, 
+            maxWidthOrHeight: 1024
         }
-        reader.readAsDataURL(e.target.files[0]);
-        setFile(e.target.files[0])
+        try {
+            const compressedFile = await imageCompression(file, options);
+            setFile(compressedFile);
+            const promise = imageCompression.getDataUrlFromFile(compressedFile);
+            promise.then(result => {
+                setPreview(result);
+            })
+        } catch (error) {
+            console.log(error);
+        }
+            
     }
     function onSubmit(e : any){
         setLoading(true);

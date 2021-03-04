@@ -19,6 +19,15 @@ export default{
             method: 'get'
         })
     },
+    getHongbo(club_id : number){
+        return request({
+            url : `/club/${club_id}/hongbo`,
+            method : 'get',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+        })
+    },
     setBanner(club_id : number, file : FormData){
         return request({
             url : `/club/${club_id}/banner`,
