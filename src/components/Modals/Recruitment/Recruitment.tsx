@@ -26,8 +26,7 @@ function Recruitment({club_id} : {club_id : number}){
     }
     function keyDownHandler(e: any){
         if(e.code==="Enter"){
-            if(value.length>0 && value.length<7){
-
+            if(value.length>0 && value.length<8){
                 setMajors([...majors,value]);
                 setValue("")
             }
@@ -37,7 +36,7 @@ function Recruitment({club_id} : {club_id : number}){
         <S.Wrapper>
             <h3>모집 공고</h3>
             <p>모집분야</p>
-            <S.majorInput onChange={(e)=>setValue(e.target.value)} value={value} onKeyPress={keyDownHandler} placeholder="모집분야를 입력해주세요." type="type"></S.majorInput>
+            <S.majorInput onChange={(e)=>setValue(e.target.value)} value={value} onKeyPress={keyDownHandler} placeholder="태그에 없는 모집분야를 추가해주세요. ( 7자 제한 )" type="type"></S.majorInput>
             <S.exmajorList>
                 {
                     exMajors.map((i,index)=>(<span onClick={()=>addMajors(index)} key={index}>{i}</span>))
