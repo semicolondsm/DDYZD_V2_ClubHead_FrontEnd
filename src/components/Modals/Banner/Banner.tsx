@@ -39,6 +39,7 @@ function Banner({club_id} : {club_id : number}){
     return(
         <S.Wrapper>
             <h3>배너 사진 변경</h3>
+            <p>아래 프리뷰 이미지에 맞게 모바일 앱에 적용됩니다.</p>
             <input accept=".png, .jpg, .HEIC" onChange={fileHandler} type="file"></input>
             {
                 typeof(preview)==="string" ?
