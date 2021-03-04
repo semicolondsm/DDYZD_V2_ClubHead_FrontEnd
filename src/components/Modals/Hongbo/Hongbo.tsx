@@ -1,3 +1,4 @@
+import imageCompression from "browser-image-compression";
 import { useState } from "react";
 import club from "../../../utils/api/club";
 import * as S from "./styles"
@@ -5,14 +6,23 @@ function Hongbo({club_id} : {club_id : number}){
     const [file, setFile] = useState<File>();
     const [preview,setPreview] = useState<string | ArrayBuffer>("");
     const [loading, setLoading] = useState<boolean>(false); 
-    function fileHandler(e : any){
-        console.log(e.target.files[0])
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            reader.result && setPreview(reader.result);
+    async function fileHandler(e : any){
+        let file = e.target.files[0];	
+        const options = { 
+            maxSizeMB: 2, 
+            maxWidthOrHeight: 1024
         }
-        reader.readAsDataURL(e.target.files[0]);
-        setFile(e.target.files[0])
+        
+        try {
+            const compressedFile = await imageCompression(file, options);
+            setFile(compressedFile);
+            const promise = imageCompression.getDataUrlFromFile(compressedFile);
+            promise.then(result => {
+                setPreview(result);
+            })
+        } catch (error) {
+            console.log(error);
+        }
     }
     function onSubmit(e : any){
         setLoading(true);
