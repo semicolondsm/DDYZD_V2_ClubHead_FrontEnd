@@ -194,7 +194,7 @@ function ChatBreakDown({
                 </select>
                 <input
                   max="12"
-                  min="1"
+                  min="0"
                   onChange={hourHandler}
                   value={startTime}
                 />
