@@ -71,7 +71,7 @@ function Feed({club_id} : {club_id : number}){
         <S.FeedWrapper>
             <h3>게시물 만들기</h3>
             <textarea onChange={(e)=>setContent(e.target.value)} placeholder="이곳을 눌러 새로운 게시물을 등록해보세요."></textarea>
-            <input accept="image/*" onChange={fileHandler} type="file" multiple></input>
+            <input accept=".png, .jpg, .HEIC" onChange={fileHandler} type="file" multiple></input>
             {
                 !loading ?
                     <button onClick={onSubmit}>게시</button>

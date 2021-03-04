@@ -30,7 +30,7 @@ function Banner({club_id} : {club_id : number}){
     return(
         <S.Wrapper>
             <h3>배너 사진 변경</h3>
-            <input onChange={fileHandler} type="file"></input>
+            <input accept=".png, .jpg, .HEIC" onChange={fileHandler} type="file"></input>
             {
                 typeof(preview)==="string" ?
                     <img src={preview}></img>
