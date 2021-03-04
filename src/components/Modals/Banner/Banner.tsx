@@ -10,7 +10,7 @@ function Banner({club_id} : {club_id : number}){
         let file = e.target.files[0];	
         const options = { 
             maxSizeMB: 2, 
-            maxWidthOrHeight: 1024
+            maxWidthOrHeight: 1280
         }
         try {
             const compressedFile = await imageCompression(file, options);
