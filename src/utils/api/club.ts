@@ -70,6 +70,15 @@ export default{
             },
         })
     },
+    getAFeed(feed_id : number){
+        return request({
+            url : `/feed/${feed_id}`,
+            method : 'get',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+        })
+    },
     addFeed(club_id : number,content : string){
         return request({
             url : `/feed/${club_id}`,
