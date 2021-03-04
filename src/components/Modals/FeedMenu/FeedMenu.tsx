@@ -1,9 +1,12 @@
 import { useContext, useEffect } from "react";
 import club from "../../../utils/api/club";
+import { popFeed } from "../../../utils/context/actions/feedAction";
+import { useFeedDispatch, useFeedState } from "../../../utils/context/feedProvider";
 import ModalContext from "../../../utils/context/modals";
 import * as S from "./styles"
 function FeedMenu({feed_id, owner} : {feed_id : number, owner : boolean}){
     const { setModalState } = useContext(ModalContext)
+    const dispatch = useFeedDispatch();
     function Pin(){
         club.setFin(feed_id)
         .then((res)=>{
@@ -13,13 +16,14 @@ function FeedMenu({feed_id, owner} : {feed_id : number, owner : boolean}){
         .catch((e)=>e.response?.status===403 && alert("클럽장이 아닙니다."))
         
     }
-    function Delete(){
-        club.delFeed(feed_id)
-        .then((res)=>{
-            setModalState("")
-            window.location.href=window.location.href;
-        })
-        .catch((e)=>alert(e))
+    async function Delete(){
+        popFeed(dispatch, feed_id)
+        setModalState("")
+        try{
+            await club.delFeed(feed_id);
+        }catch(e){
+            console.error(e);
+        }
     }
     return(
         <S.Wrapper>
