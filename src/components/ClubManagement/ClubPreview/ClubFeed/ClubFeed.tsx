@@ -11,7 +11,7 @@ function ClubFeed({club_id} : {club_id : number}){
     const [last, setLast] = useState(false);
     const dispatch = useFeedDispatch();
     const state: any=useFeedState();
-    function infiniteScroll(){
+    async function infiniteScroll(){
         let scrollHeight = Math.max(
           document.documentElement.scrollHeight,
           document.body.scrollHeight  
@@ -22,9 +22,11 @@ function ClubFeed({club_id} : {club_id : number}){
         );
         let clientHeight = document.documentElement.clientHeight;
         if (scrollTop + clientHeight >= scrollHeight-200) {  
-          pushFeed(dispatch, club_id, page+1)
           setPage(page+1);
           window.onscroll=null;
+          let temp=await pushFeed(dispatch, club_id, page+1)
+          if(temp.length===0) setLast(true);
+          
         }
       }
     useEffect(()=>{
@@ -33,9 +35,6 @@ function ClubFeed({club_id} : {club_id : number}){
     useEffect(()=>{
       if(state.FeedList.data){
         setData(state.FeedList.data)
-        if(state.FeedList.data.length===0){
-          setLast(true)
-        }
       }
     },[state])
     useEffect(()=>{
