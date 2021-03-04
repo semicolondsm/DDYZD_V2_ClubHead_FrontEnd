@@ -35,7 +35,7 @@ export function ChatProvider({ children }: any) {
 }
 
 export function useChatState() {
-  const state = useContext(ChatStateContext);
+  const state: any = useContext(ChatStateContext);
   if (!state) {
     throw new Error("Cannot find UsersProvider");
   }

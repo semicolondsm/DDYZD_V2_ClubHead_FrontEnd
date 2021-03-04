@@ -17,9 +17,17 @@ export interface RoomList {
   rooms: RoomType[];
 }
 
+interface UserInfo {
+  id: number;
+  name: string;
+  image: string;
+  status: "U" | "C" | "H1" | "H2" | "H3" | "H4";
+}
+
 export interface Chattings {
-  roomid: number;
+  room_id: number;
   Chattings: ChatData[];
+  user_info: UserInfo;
 }
 
 export interface ApplicantType {

@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
-import chat from "../../../utils/api/chat";
 import * as S from "./styles";
+import {
+  useChatDispatch,
+  useChatState,
+} from "../../../utils/context/chatProvider";
+import { getRoomList } from "../../../utils/context/actions/chatAction";
 interface RoomData {
   id: number;
   image: string;
@@ -10,10 +14,6 @@ interface RoomData {
   lastmessage: string;
   name: string;
   roomid: number;
-}
-interface ChatListData {
-  club_section: string;
-  rooms: RoomData[];
 }
 function date(params: Date) {
   let date = new Date(params);
@@ -35,14 +35,20 @@ function date(params: Date) {
 }
 
 function ChatRooms({ club_id }: { club_id: number }) {
+  const dispatch = useChatDispatch();
+  const state = useChatState();
   const [data, setData] = useState<any>(null);
   const history = useHistory();
   const {
     location: { pathname: path },
   } = history;
   useEffect(() => {
-    chat.getUserList(club_id).then((res) => setData(res.data));
+    getRoomList(dispatch, club_id);
   }, [club_id]);
+
+  useEffect(() => {
+    setData(state.RoomList.data);
+  }, [state]);
   return (
     <S.Wrapper>
       <S.SearchWrapper>
