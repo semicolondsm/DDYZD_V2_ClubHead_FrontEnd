@@ -8,7 +8,7 @@ import {
 } from "../context/actions/chatAction";
 import chatApi from "../api/chat";
 
-const SOCKET_SERVER_URL = "https://api.semicolon.live/chat";
+const SOCKET_SERVER_URL = "https://api.semicolon.live/chat?token=";
 interface ChatData {
   created_at: Date;
   msg: string;
@@ -20,15 +20,7 @@ interface messageType {
   date: Date;
 }
 
-const Socket = socketIOClient.connect(SOCKET_SERVER_URL, {
-  transportOptions: {
-    polling: {
-      extraHeaders: {
-        Authorization: `Bearer ${window.localStorage.accessToken}`,
-      },
-    },
-  },
-});
+const Socket = socketIOClient.connect(SOCKET_SERVER_URL + localStorage.accessToken, { transports: ['websocket']});
 
 Socket.on("disconnect", () => {
   localStorage.removeItem("connect");
