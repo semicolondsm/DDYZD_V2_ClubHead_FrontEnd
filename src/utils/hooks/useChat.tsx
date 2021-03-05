@@ -60,23 +60,25 @@ const useChat = (roomId: number, roomToken: string) => {
     alert(messages.msg);
   };
   useEffect(() => {
+    console.log("Asd");
     Socket.on("recv_chat", recv_chat);
     Socket.on("alarm", alarm);
     Socket.on("error", error);
+    if (localStorage.getItem("connect") == "true") {
+      Socket.emit("join_room", { room_token: roomToken });
+      return;
+    }
     Socket.on("connect", () => {
       Socket.emit("join_room", { room_token: roomToken });
       localStorage.setItem("connect", "true");
     });
-    if (localStorage.getItem("connect") == "true") {
-      Socket.emit("join_room", { room_token: roomToken });
-    }
     return () => {
       Socket.emit("leave_room", { room_token: roomToken });
       Socket.off("recv_chat", recv_chat);
       Socket.off("alarm", alarm);
       Socket.off("error", error);
     };
-  }, [roomId]);
+  }, []);
 
   const sendMessage = (data: any) => {
     data.type === "N"

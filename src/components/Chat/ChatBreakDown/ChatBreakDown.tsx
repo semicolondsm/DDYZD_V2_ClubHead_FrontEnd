@@ -45,11 +45,13 @@ function ChatBreakDown({
         messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
         setData(state.ChatList.data[index].Chattings);
         setInfo(state.ChatList.data[index].user_info);
+        messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
         return;
       }
     }
     getChatList(dispatch, chatId);
     getUserInfo(dispatch, chatId);
+    messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
   }, [chatId]);
 
   useEffect(() => {
@@ -66,6 +68,9 @@ function ChatBreakDown({
     });
     messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
   }, [state]);
+  useEffect(() => {
+    messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
+  }, [data]);
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (value !== "") sendMessage({ msg: value });
