@@ -26,6 +26,11 @@ export const Wrapper=styled.div`
     border-radius: 10px;
     left: 50%;
     transform: translate(-50%, -50%);
+    & p{
+        text-align: right;
+        color: red;
+        cursor: pointer;
+    }
 `
 export const NowClub=styled.h3`
     margin-bottom: 15px;

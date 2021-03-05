@@ -7,8 +7,13 @@ export const Wrapper=styled.div`
     border-radius: 10px;
     display: flex;
     width: 100%;
-    max-width: 1024px;
+    max-width: 450px;
     flex-direction: column;
+    & p{
+        font-size: 12px;
+        margin-bottom: 5px;
+        color:red;
+    }
     & h3{
         border-bottom: 1px solid #0000001a;
         font-weight: 700;
@@ -19,9 +24,9 @@ export const Wrapper=styled.div`
     }
     & img{
         width: 100%;
-        max-width: 1024px;
+        max-width: 450px;
         object-fit: cover;
-        height: 300px;
+        height: 200px;
     }
     & button{
         margin-top: 10px;

@@ -1,3 +1,4 @@
+import { FeedProvider } from "../../../utils/context/feedProvider";
 import ClubFeed from "./ClubFeed/ClubFeed";
 import ClubHeader from "./ClubHeader/ClubHeader";
 import ClubRecruitment from "./ClubRecruitment/ClubRecruitment";

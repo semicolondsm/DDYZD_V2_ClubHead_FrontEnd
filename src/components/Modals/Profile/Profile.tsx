@@ -29,7 +29,7 @@ function Profile({club_id} : {club_id : number}){
     return(
         <S.Wrapper>
             <h3>프로필 사진 변경</h3>
-            <input onChange={fileHandler} type="file"></input>
+            <input accept=".png, .jpg, .HEIC" onChange={fileHandler} type="file"></input>
             {
                 typeof(preview)==="string" ?
                     <img src={preview}></img>

@@ -1,3 +1,4 @@
+import { METHODS } from 'http'
 import { stringify } from 'querystring'
 import request from '../axios'
 export default{
@@ -17,6 +18,15 @@ export default{
         return request({
             url : `/club/${club_id}/info`,
             method: 'get'
+        })
+    },
+    getHongbo(club_id : number){
+        return request({
+            url : `/club/${club_id}/hongbo`,
+            method : 'get',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
         })
     },
     setBanner(club_id : number, file : FormData){
@@ -65,6 +75,15 @@ export default{
         return request({
             url: `/feed/${feed_id}`,
             method: 'delete',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+        })
+    },
+    getAFeed(feed_id : number){
+        return request({
+            url : `/feed/${feed_id}`,
+            method : 'get',
             headers : {
                 "Authorization" : `Bearer ${localStorage.accessToken}`
             },
@@ -122,6 +141,15 @@ export default{
         return request({
             url : `/club/${club_id}/recruitment`,
             method: 'get',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+        })
+    },
+    delRecruitment(club_id : number){
+        return request({
+            url : `/club/${club_id}/recruitment`,
+            method : 'delete',
             headers : {
                 "Authorization" : `Bearer ${localStorage.accessToken}`
             },
