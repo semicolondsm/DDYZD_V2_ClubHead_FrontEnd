@@ -34,7 +34,10 @@ function ClubRecruitment({club_id} : {club_id : number}){
                 data ? 
                 <S.Wrapper>
                     <div>
-                        <p>모집분야</p>
+                        <S.HeaderWrapper>
+                            <p>모집분야</p>
+                            <S.CloseIco onClick={()=>{club.delRecruitment(club_id); window.location.href=window.location.href }}></S.CloseIco>
+                        </S.HeaderWrapper>
                         <S.TagList>
                             {
                                 data?.major.map((i, index)=>(<span key={index}>{i}</span>))
