@@ -20,7 +20,10 @@ interface messageType {
   date: Date;
 }
 
-const Socket = socketIOClient.connect(SOCKET_SERVER_URL + localStorage.accessToken, { transports: ['websocket']});
+const Socket = socketIOClient.connect(
+  SOCKET_SERVER_URL + localStorage.accessToken,
+  { transports: ["websocket"] }
+);
 
 Socket.on("disconnect", () => {
   localStorage.removeItem("connect");
