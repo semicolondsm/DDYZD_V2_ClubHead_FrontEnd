@@ -1,3 +1,4 @@
+import { METHODS } from 'http'
 import { stringify } from 'querystring'
 import request from '../axios'
 export default{
@@ -140,6 +141,15 @@ export default{
         return request({
             url : `/club/${club_id}/recruitment`,
             method: 'get',
+            headers : {
+                "Authorization" : `Bearer ${localStorage.accessToken}`
+            },
+        })
+    },
+    delRecruitment(club_id : number){
+        return request({
+            url : `/club/${club_id}/recruitment`,
+            method : 'delete',
             headers : {
                 "Authorization" : `Bearer ${localStorage.accessToken}`
             },
