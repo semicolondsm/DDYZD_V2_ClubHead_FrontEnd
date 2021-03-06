@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import club from "../../../../utils/api/club";
+import { useRecruitmentDispatch, useRecruitmentState } from "../../../../utils/context/recruitmentProvider";
+import { delRecruitment, setRecruitment } from "../../../../utils/context/actions/recruitmentAction";
 import * as S from "./styles"
 interface RecruitmentData {
     major : string[],
@@ -24,10 +26,18 @@ function getDday(rstart : Date, rend : Date){
 
 function ClubRecruitment({club_id} : {club_id : number}){
     const [data,setData] = useState<RecruitmentData>();
+    const dispatch=useRecruitmentDispatch();
+    const state: any=useRecruitmentState();
+    function deleteRecruitment(){
+        let result = window.confirm("정말로 모집공고를 취소하시겠습니까?");
+        result && delRecruitment(dispatch, club_id)
+    }
     useEffect(()=>{
-        club.getRecruitment(club_id)
-        .then((res)=>setData(res.data))
+        setRecruitment(dispatch, club_id);
     },[])
+    useEffect(()=>{
+        setData(state.Recruitment?.data);
+    },[state])
     return(
         <>
             {
@@ -36,7 +46,7 @@ function ClubRecruitment({club_id} : {club_id : number}){
                     <div>
                         <S.HeaderWrapper>
                             <p>모집분야</p>
-                            <S.CloseIco onClick={()=>{club.delRecruitment(club_id).then((res)=>window.location.href=window.location.href)  }}></S.CloseIco>
+                            <S.CloseIco onClick={deleteRecruitment}></S.CloseIco>
                         </S.HeaderWrapper>
                         <S.TagList>
                             {

@@ -1,5 +1,6 @@
 import { FeedProvider } from "./feedProvider";
 import { ModalProvider } from "./modals";
+import { RecruitmentProvider } from "./recruitmentProvider";
 import { UserProvider } from "./user";
 
 function GlobalProvider({children} : {children : React.ReactNode}){
@@ -8,7 +9,9 @@ function GlobalProvider({children} : {children : React.ReactNode}){
             <UserProvider>
                 <FeedProvider>
                     <ModalProvider>
-                        {children}
+                        <RecruitmentProvider>
+                            {children}
+                        </RecruitmentProvider>
                     </ModalProvider>
                 </FeedProvider>
             </UserProvider>
