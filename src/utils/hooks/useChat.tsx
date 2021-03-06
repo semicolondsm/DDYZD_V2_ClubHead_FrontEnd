@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import socketIOClient from "socket.io-client";
 import { useChatDispatch } from "../../utils/context/chatProvider";
 import {
   pushMessage,
@@ -8,7 +7,6 @@ import {
 } from "../context/actions/chatAction";
 import chatApi from "../api/chat";
 
-const SOCKET_SERVER_URL = "https://api.semicolon.live/chat?token=";
 interface ChatData {
   created_at: Date;
   msg: string;
@@ -20,16 +18,7 @@ interface messageType {
   date: Date;
 }
 
-const Socket = socketIOClient.connect(
-  SOCKET_SERVER_URL + localStorage.accessToken,
-  { transports: ["websocket"] }
-);
-
-Socket.on("disconnect", () => {
-  localStorage.removeItem("connect");
-});
-
-const useChat = (roomId: number, roomToken: string) => {
+const useChat = (roomId: number, roomToken: string, Socket: any) => {
   const [messages, setMessages] = useState<ChatData[]>([]);
   const [state, setState] = useState<boolean>(false);
   const dispatch = useChatDispatch();
@@ -42,7 +31,6 @@ const useChat = (roomId: number, roomToken: string) => {
     refreshLastMessage(dispatch, tempM, roomId);
   };
   const alarm = async ({ room_id }: { room_id: number }) => {
-    console.log("Al");
     const response: any = await chatApi.getRefresh(room_id);
     const message: messageType = {
       message: response.data.lastmessage,
@@ -55,7 +43,9 @@ const useChat = (roomId: number, roomToken: string) => {
     alert(messages.msg);
   };
   useEffect(() => {
-    console.log("Asd");
+    Socket.off("recv_chat", recv_chat);
+    Socket.off("alarm", alarm);
+    Socket.off("error", error);
     Socket.on("recv_chat", recv_chat);
     Socket.on("alarm", alarm);
     Socket.on("error", error);
@@ -67,13 +57,7 @@ const useChat = (roomId: number, roomToken: string) => {
       Socket.emit("join_room", { room_token: roomToken });
       localStorage.setItem("connect", "true");
     });
-    return () => {
-      Socket.emit("leave_room", { room_token: roomToken });
-      Socket.off("recv_chat", recv_chat);
-      Socket.off("alarm", alarm);
-      Socket.off("error", error);
-    };
-  }, []);
+  }, [roomToken]);
 
   const sendMessage = (data: any) => {
     data.type === "N"

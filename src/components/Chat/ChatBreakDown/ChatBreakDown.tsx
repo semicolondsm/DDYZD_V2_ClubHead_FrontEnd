@@ -15,12 +15,14 @@ import {
 function ChatBreakDown({
   roomToken,
   chatId,
+  Socket,
 }: {
   roomToken: string;
   chatId: number;
+  Socket: any;
 }) {
   const [value, setValue] = useState<string>("");
-  const { messages, sendMessage } = useChat(chatId, roomToken);
+  const { sendMessage } = useChat(chatId, roomToken, Socket);
   const [data, setData] = useState<ChatData[]>([]);
   const [info, setInfo] = useState<any>();
   const [modal, setModal] = useState<"R" | "N" | null>(null);
