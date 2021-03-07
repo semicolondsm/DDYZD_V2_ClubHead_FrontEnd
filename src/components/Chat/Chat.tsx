@@ -30,9 +30,7 @@ function Chat({ match: { params } }: { match: any }) {
   useEffect(() => {
     if (socket) {
       socket.on("recv_chat", (message: any) => {
-        const room_id: number = Number(
-          /(?<=\/chat\/)\d+(?=\/)?/.exec(window.location.pathname)
-        );
+        const room_id: number = Number(window.location.pathname.split("/chat/")[1]);
         if (room_id === null) return;
         if (
           message.user_type === "H1" ||
