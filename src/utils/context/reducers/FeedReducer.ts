@@ -1,4 +1,3 @@
-import { FeedList } from "../../../components/ClubManagement/ClubPreview/ClubFeed/styles";
 import {
   GET_FEED_LIST,
   GET_FEED_LIST_SUCCESS,

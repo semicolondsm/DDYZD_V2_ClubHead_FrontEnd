@@ -1,20 +1,29 @@
 import { useContext, useEffect, useState } from "react";
 import club from "../../../utils/api/club";
+import { setRecruitment } from "../../../utils/context/actions/recruitmentAction";
 import ModalContext from "../../../utils/context/modals";
+import { useRecruitmentDispatch, useRecruitmentState } from "../../../utils/context/recruitmentProvider";
 import * as S from "./styles"
 function Recruitment({club_id} : {club_id : number}){
-    const [date, setDate] = useState<Date | null>(null);
+    const [date, setDate] = useState<string>("");
     const exMajors = ["프론트엔드","백엔드","Android","IOS","인공지능" ];
     const [majors,setMajors]=useState<string[]>([]);
     const [value,setValue] = useState<string>("");
+    const [loading,setLoading] = useState(false);
     const { setModalState } = useContext(ModalContext)
-    function onSubmit(){
-        date && club.addRecru(club_id, date, majors)
-        .then((res)=>{
-            window.location.href=`/club/${club_id}`
+    const dispatch=useRecruitmentDispatch();
+    const state: any=useRecruitmentState();
+    async function onSubmit(){
+        try{
+            setLoading(true);
+            const datetime=new Date(date);
+            datetime && await club.addRecru(club_id, datetime, majors)
+            setRecruitment(dispatch, club_id);
             setModalState(null);
-        })
-        .catch((e)=>alert(e))
+        } catch(e){
+            alert(e)
+        }
+        setLoading(false);
     }
     function delMajors(index : number){
         let temp=[...majors];
@@ -48,8 +57,12 @@ function Recruitment({club_id} : {club_id : number}){
                 }
             </S.majorList>
             <p>종료일</p>
-            <input style={{marginBottom: "30px"}} onChange={(e)=>setDate(e.target.valueAsDate)} type='date' name='userBirthday'/>
-            <button onClick={onSubmit}>게시</button>
+            <input placeholder="날짜양식 : 2021-03-21" style={{marginBottom: "30px"}} onChange={(e)=>setDate(e.target.value)} type='date' name='userBirthday'/>
+            {
+                loading ? 
+                    <S.ButtonDisable>올라가는중...</S.ButtonDisable>
+                : <button onClick={onSubmit}>게시</button>
+            }
         </S.Wrapper>
     )
 }
