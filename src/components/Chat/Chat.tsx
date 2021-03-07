@@ -30,7 +30,9 @@ function Chat({ match: { params } }: { match: any }) {
   useEffect(() => {
     if (socket) {
       socket.on("recv_chat", (message: any) => {
-        const room_id: number = Number(window.location.pathname.split("/chat/")[1]);
+        const room_id: number = Number(
+          window.location.pathname.split("/chat/")[1]
+        );
         if (room_id === null) return;
         if (
           message.user_type === "H1" ||
@@ -102,6 +104,7 @@ function Chat({ match: { params } }: { match: any }) {
     setSocket(Socket);
     Socket.on("connect", () => {
       setIsCon(true);
+      localStorage.setItem("connect", "true");
     });
 
     return () => {
