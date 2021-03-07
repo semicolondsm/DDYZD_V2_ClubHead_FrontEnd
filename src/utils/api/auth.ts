@@ -15,8 +15,8 @@ export default{
             url : `https://developer-api.dsmkr.com/dsmauth/token`,
             method : 'post',
             data:{
-                client_id : 'ab840667ddcd41dc81b29f8f128a0e66',
-                client_secret : 'adbf21db93f240a8a2d1e4e3b446689c', 
+                client_id : '9facd7523738448ba98507ac6f57a9ba',
+                client_secret : '7e8955de54cc48b6b88d4fd70857fa5d', 
                 code: code,
             }
         })
