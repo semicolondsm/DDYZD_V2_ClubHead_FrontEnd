@@ -13,6 +13,8 @@ import {
   GET_USER_INFO_ERROR,
   PUSH_MESSAGE,
   REFRESH_LAST_MESSAGE,
+  READ_MESSAGE,
+  CHANGE_STATUS,
 } from "../types";
 
 const loadingState = {
@@ -67,7 +69,6 @@ export default function (state: any, action: any) {
       } else {
         temp[index].Chattings = action.data.chattings;
       }
-      console.log(temp[index]);
       return {
         ...state,
         ChatList: { data: [...temp], loading: false, error: false },
@@ -77,6 +78,7 @@ export default function (state: any, action: any) {
     case GET_ROOM_LIST:
       return { ...state, RoomList: loadingState };
     case GET_ROOM_LIST_SUCCESS:
+      console.log(action.data);
       return { ...state, RoomList: success(action.data) };
     case GET_ROOM_LIST_ERROR:
       return { ...state, RoomList: error(action.error) };
@@ -125,8 +127,7 @@ export default function (state: any, action: any) {
         (val: any) => val.roomid == action.data.room_id
       );
       if (Lindex === -1) {
-        console.log(2, tempL[Lindex]);
-        tempL.push(action.date.refresh);
+        tempL.push(action.data.refresh);
         return {
           ...state,
           RoomList: {
@@ -139,15 +140,49 @@ export default function (state: any, action: any) {
           },
         };
       }
-      console.log(2, tempL[Lindex]);
       tempL[Lindex].lastmessage = action.data.message.message;
       tempL[Lindex].lastdate = action.data.message.date;
+      tempL[Lindex].isread = action.data.message.isread;
       return {
         ...state,
         RoomList: {
           data: {
             ...state.RoomList.data,
             rooms: tempL,
+          },
+          loading: false,
+          error: false,
+        },
+      };
+    case READ_MESSAGE:
+      const tempR = state.RoomList.data.rooms;
+      const Rindex = tempR.findIndex((val: any) => val.roomid == action.data);
+      if (Rindex === -1) return { ...state };
+      tempR[Rindex].isread = true;
+      return {
+        ...state,
+        RoomList: {
+          data: {
+            ...state.RoomList.data,
+            rooms: tempR,
+          },
+          loading: false,
+          error: false,
+        },
+      };
+    case CHANGE_STATUS:
+      const tempS = state.RoomList.data.rooms;
+      const Sindex = tempS.findIndex(
+        (val: any) => val.roomid == action.data.room_id
+      );
+      if (Sindex === -1) return { ...state };
+      tempS[Sindex].status = action.data.status;
+      return {
+        ...state,
+        RoomList: {
+          data: {
+            ...state.RoomList.data,
+            rooms: tempS,
           },
           loading: false,
           error: false,

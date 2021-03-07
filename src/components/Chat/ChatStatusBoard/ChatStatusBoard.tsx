@@ -8,9 +8,11 @@ import {
 } from "../../../utils/context/chatProvider";
 import { getApplicant } from "../../../utils/context/actions/chatAction";
 import * as S from "./styles";
+import Loading from "../../Loading/Loading";
 function ChatStatusBoard({ club_id }: { club_id: number }) {
   const [clubInfo, setClubInfo] = useState<ClubIfnoData>();
   const [aplicant, setAplicant] = useState([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useChatDispatch();
   const history = useHistory();
   const state = useChatState();
@@ -23,12 +25,14 @@ function ChatStatusBoard({ club_id }: { club_id: number }) {
   }, []);
 
   useEffect(() => {
+    setLoading(state.ApplicantList.loading);
     setAplicant(
       state.ApplicantList.data !== null ? state.ApplicantList.data : []
     );
   }, [state]);
   return (
     <S.Wrapper>
+      {loading && <Loading />}
       <S.Header>
         <Link to={`/club/${clubInfo?.clubid}`}>
           <img
