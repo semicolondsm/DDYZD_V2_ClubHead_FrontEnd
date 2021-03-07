@@ -11,7 +11,7 @@ import { ChatProvider } from "./utils/context/chatProvider";
 
 function App() {
   useEffect(() => {
-    onSilentRefresh();
+    localStorage.refreshToken && onSilentRefresh();
   }, []);
   return (
     <Router>
