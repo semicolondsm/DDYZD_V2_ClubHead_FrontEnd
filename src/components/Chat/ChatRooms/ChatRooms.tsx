@@ -55,10 +55,10 @@ function ChatRooms({ club_id }: { club_id: number }) {
     setLoading(state.RoomList.loading);
     setData(state.RoomList.data);
     if (state.RoomList.data && !isOn) {
-      readMessage(
-        dispatch,
-        Number(/(?<=\/chat\/)\d+(?=\/)?/.exec(window.location.pathname))
+      const clubId: number = Number(
+        window.location.pathname.split("club/")[1].split("/chat")[0]
       );
+      readMessage(dispatch, clubId);
       setIsOn(true);
     }
   }, [state]);
