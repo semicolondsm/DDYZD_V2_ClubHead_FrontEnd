@@ -13,6 +13,8 @@ import {
   GET_USER_INFO_ERROR,
   PUSH_MESSAGE,
   REFRESH_LAST_MESSAGE,
+  READ_MESSAGE,
+  CHANGE_STATUS,
 } from "../types";
 
 import chatApi from "../../api/chat";
@@ -23,6 +25,7 @@ export async function getApplicant(dispatch: any, club_id: number) {
   dispatch({ type: GET_APPLICANT_LIST });
   try {
     const response = await chatApi.getApplicant(club_id);
+    console.log(response);
     dispatch({ type: GET_APPLICANT_LIST_SUCCESS, data: response.data });
   } catch (err) {
     dispatch({ type: GET_APPLICANT_LIST_ERROR, error: err });
@@ -81,4 +84,17 @@ export function refreshLastMessage(
   refresh?: any
 ) {
   dispatch({ type: REFRESH_LAST_MESSAGE, data: { message, room_id, refresh } });
+}
+
+export function readMessage(dispatch: any, room_id: number) {
+  dispatch({ type: READ_MESSAGE, data: room_id });
+}
+
+interface statusType {
+  room_id: number;
+  status: string;
+}
+
+export function changeStatus(dispatch: any, data: statusType) {
+  dispatch({ type: CHANGE_STATUS, data });
 }

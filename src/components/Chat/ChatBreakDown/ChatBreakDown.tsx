@@ -11,6 +11,7 @@ import {
   getChatList,
   getUserInfo,
 } from "../../../utils/context/actions/chatAction";
+import Loading from "../../Loading/Loading";
 
 function ChatBreakDown({
   roomToken,
@@ -26,13 +27,14 @@ function ChatBreakDown({
   const [data, setData] = useState<ChatData[]>([]);
   const [info, setInfo] = useState<any>();
   const [modal, setModal] = useState<"R" | "N" | null>(null);
-  const [loading, setLoading] = useState(false);
   const [select, setSelect] = useState<string>("am");
+  const [loading, setLoading] = useState<boolean>(false);
   const [location, setLocation] = useState<string>("");
   const [startTime, setStartTime] = useState<string>("0");
   const [startDate, setStartDate] = useState<string>(
     localStorage.date && localStorage.date
   );
+  const [chatStatus, setChatStatus] = useState<string>("");
   const [startMinute, setStartMinute] = useState<string>("0");
   const [fix, setFix] = useState<boolean>(localStorage.date ? true : false);
   const messagesEndRef = useRef<any>(null);
@@ -57,9 +59,10 @@ function ChatBreakDown({
   }, [chatId]);
 
   useEffect(() => {
+    setLoading(state.ChatList.loading);
     let temp: any[] = [];
     let temp2: any = {};
-    if (state.ChatList.data === null) return;
+    if (state.ChatList.data === null || state.RoomList.data === null) return;
     state.ChatList.data.forEach((val: any) => {
       if (chatId === val.chat_id) {
         temp = val.Chattings;
@@ -67,6 +70,12 @@ function ChatBreakDown({
       }
       setData(temp);
       setInfo(temp2);
+    });
+    state.RoomList.data.rooms.forEach((val: any) => {
+      if (chatId == val.roomid) {
+        setChatStatus(val.status);
+        temp = val.status;
+      }
     });
     messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
   }, [state]);
@@ -78,8 +87,8 @@ function ChatBreakDown({
     if (value !== "") sendMessage({ msg: value });
     setValue("");
   }
-  useEffect(() => {}, [startDate]);
   function ScheduleSubmit() {
+    setModal(null);
     let hours =
       select === "pm"
         ? startTime === "12"
@@ -132,6 +141,7 @@ function ChatBreakDown({
   }
   return (
     <S.Wrapper>
+      {loading && <Loading />}
       <S.Header>
         <div>
           <img src={info?.image}></img>
@@ -151,12 +161,17 @@ function ChatBreakDown({
           value={value}
           placeholder="메세지 입력"
         ></input>
-        <S.ClockIco
-          onClick={() => (modal ? setModal(null) : setModal("N"))}
-        ></S.ClockIco>
-        <S.NotificationIco
-          onClick={() => (modal ? setModal(null) : setModal("R"))}
-        ></S.NotificationIco>
+        {chatStatus === "A" ? (
+          <S.ClockIco
+            onClick={() => (modal ? setModal(null) : setModal("N"))}
+          ></S.ClockIco>
+        ) : chatStatus === "S" ? (
+          <S.NotificationIco
+            onClick={() => (modal ? setModal(null) : setModal("R"))}
+          ></S.NotificationIco>
+        ) : (
+          <></>
+        )}
         {modal === "R" ? (
           <S.InterviewDropDownMenu>
             <h3>면접결과</h3>

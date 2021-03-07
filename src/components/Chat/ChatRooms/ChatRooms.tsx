@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
+import { readMessage } from "../../../utils/context/actions/chatAction";
 import * as S from "./styles";
 import {
   useChatDispatch,
   useChatState,
 } from "../../../utils/context/chatProvider";
 import { getRoomList } from "../../../utils/context/actions/chatAction";
+import Loading from "../../Loading/Loading";
 interface RoomData {
   id: number;
   image: string;
@@ -14,6 +16,7 @@ interface RoomData {
   lastmessage: string;
   name: string;
   roomid: number;
+  isread: boolean;
 }
 function date(params: Date) {
   let date = new Date(params);
@@ -35,9 +38,11 @@ function date(params: Date) {
 }
 
 function ChatRooms({ club_id }: { club_id: number }) {
+  const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useChatDispatch();
   const state = useChatState();
   const [data, setData] = useState<any>(null);
+  const [isOn, setIsOn] = useState<boolean>(false);
   const history = useHistory();
   const {
     location: { pathname: path },
@@ -47,13 +52,26 @@ function ChatRooms({ club_id }: { club_id: number }) {
   }, [club_id]);
 
   useEffect(() => {
+    setLoading(state.RoomList.loading);
     setData(state.RoomList.data);
+    if (state.RoomList.data && !isOn) {
+      readMessage(
+        dispatch,
+        Number(/(?<=\/chat\/)\d+(?=\/)?/.exec(window.location.pathname))
+      );
+      setIsOn(true);
+    }
   }, [state]);
+
+  const read = (room_id: number) => {
+    readMessage(dispatch, room_id);
+  };
   return (
     <S.Wrapper>
+      {loading && <Loading />}
       <S.SearchWrapper>
         <S.SearchIco></S.SearchIco>
-        <input placeholder="검색"></input>
+        <input placeholder="검색" readOnly></input>
       </S.SearchWrapper>
       <S.RoomListWrapper>
         <div>
@@ -63,15 +81,28 @@ function ChatRooms({ club_id }: { club_id: number }) {
         <S.RoomList>
           {data &&
             data.rooms.map((i: RoomData) => (
-              <li key={i.roomid}>
+              <li key={i.roomid} onClick={() => read(i.roomid)}>
                 <NavLink
                   to={path.split("/chat")[0] + `/chat/${i.roomid}`}
-                  activeStyle={{ background: "#F5F5F5", fontWeight: "bold" }}
+                  activeStyle={{
+                    background: "#F5F5F5",
+                    fontWeight: "bold",
+                  }}
                 >
                   <img src={i.image} alt="프로필"></img>
                   <div>
                     <p>{i.name}</p>
-                    <S.LastMessage>
+                    <S.LastMessage
+                      style={
+                        i.isread
+                          ? { color: "#a4a4a4" }
+                          : {
+                              color: "#222222",
+                              fontWeight: 900,
+                              textShadow: "0 3px 5px rgba(0, 0, 0, 0.3)",
+                            }
+                      }
+                    >
                       <p>{i.lastmessage}</p> · {date(i.lastdate)}
                     </S.LastMessage>
                   </div>
