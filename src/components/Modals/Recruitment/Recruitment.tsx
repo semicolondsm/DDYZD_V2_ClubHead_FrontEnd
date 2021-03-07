@@ -5,7 +5,7 @@ import ModalContext from "../../../utils/context/modals";
 import { useRecruitmentDispatch, useRecruitmentState } from "../../../utils/context/recruitmentProvider";
 import * as S from "./styles"
 function Recruitment({club_id} : {club_id : number}){
-    const [date, setDate] = useState<Date | null>(null);
+    const [date, setDate] = useState<string>("");
     const exMajors = ["프론트엔드","백엔드","Android","IOS","인공지능" ];
     const [majors,setMajors]=useState<string[]>([]);
     const [value,setValue] = useState<string>("");
@@ -16,7 +16,8 @@ function Recruitment({club_id} : {club_id : number}){
     async function onSubmit(){
         try{
             setLoading(true);
-            date && await club.addRecru(club_id, date, majors)
+            const datetime=new Date(date);
+            datetime && await club.addRecru(club_id, datetime, majors)
             setRecruitment(dispatch, club_id);
             setModalState(null);
         } catch(e){
@@ -56,7 +57,7 @@ function Recruitment({club_id} : {club_id : number}){
                 }
             </S.majorList>
             <p>종료일</p>
-            <input style={{marginBottom: "30px"}} onChange={(e)=>setDate(e.target.valueAsDate)} type='date' name='userBirthday'/>
+            <input placeholder="날짜양식 : 2021-03-21" style={{marginBottom: "30px"}} onChange={(e)=>setDate(e.target.value)} type='date' name='userBirthday'/>
             {
                 loading ? 
                     <S.ButtonDisable>올라가는중...</S.ButtonDisable>
