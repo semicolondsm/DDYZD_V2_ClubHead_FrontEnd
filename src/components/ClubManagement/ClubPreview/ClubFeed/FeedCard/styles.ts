@@ -71,6 +71,7 @@ export const CardBottom = styled.div`
 export const Content = styled.div`
     padding: 0 25px;
     margin-bottom: 10px;
+    white-space: pre-wrap;
     @media screen and (max-width: ${maxWidth}) { 
         padding: 0px 15px;
     }
