@@ -19,6 +19,7 @@ export const ChatList = styled.ul`
   & li {
     width: 100%;
     display: inline-block;
+    margin-top: 10px;
   }
 `;
 export const Header = styled.div`

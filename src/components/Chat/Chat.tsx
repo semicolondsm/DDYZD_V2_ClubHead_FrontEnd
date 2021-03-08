@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import ChatBreakDown from "./ChatBreakDown/ChatBreakDown";
 import ChatRooms from "./ChatRooms/ChatRooms";
 import ChatStatusBoard from "./ChatStatusBoard/ChatStatusBoard";
-import socketIOClient, { Socket } from "socket.io-client";
+import socketIOClient from "socket.io-client";
 import { useChatDispatch } from "../../utils/context/chatProvider";
 import {
   pushMessage,
@@ -87,7 +87,8 @@ function Chat({ match: { params } }: { match: any }) {
   }, [socket]);
 
   useEffect(() => {
-    if (socket) socket.emit("leave_room", { room_token });
+    if (socket && room_token !== null)
+      socket.emit("leave_room", { room_token });
     setRoomToken(null);
     params.chatId &&
       chat.getToken(params.chatId).then((res) => {

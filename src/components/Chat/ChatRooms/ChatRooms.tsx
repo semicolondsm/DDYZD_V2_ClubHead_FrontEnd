@@ -87,6 +87,7 @@ function ChatRooms({ club_id }: { club_id: number }) {
                   activeStyle={{
                     background: "#F5F5F5",
                     fontWeight: "bold",
+                    pointerEvents: "none",
                   }}
                 >
                   <img src={i.image} alt="프로필"></img>
