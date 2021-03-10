@@ -52,7 +52,7 @@ export const Bottom = styled.form`
     border: none;
     font-size: 13px;
     padding: 6px 20px;
-    color: #a4a4a4;
+    color: black;
     background: #f5f5f5 0% 0% no-repeat padding-box;
     border-radius: 15px;
   }
