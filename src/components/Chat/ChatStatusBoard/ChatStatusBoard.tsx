@@ -45,8 +45,8 @@ function ChatStatusBoard({
       return;
     }
     const room_token = await chatApi.getToken(room_id);
-    socket.emit("helper_cancle_applicant", {
-      room_token,
+    socket.emit("helper_cancel_applicant", {
+      room_token: room_token.data.room_token,
     });
   };
   return (
@@ -64,12 +64,16 @@ function ChatStatusBoard({
         <h3>동아리 지원자 리스트 ({aplicant.length})</h3>
         <S.List>
           {aplicant.map((i: any) => (
-            <li key={i.id}>
+            <li key={i.id} style={{ position: "relative" }}>
+              <S.Cancle onClick={() => cancle(i.roomid)}>x</S.Cancle>
               <NavLink
                 to={path.split("/chat")[0] + `/chat/${i.roomid}`}
-                activeStyle={{ background: "#F5F5F5", fontWeight: "bold" }}
+                activeStyle={{
+                  background: "#F5F5F5",
+                  fontWeight: "bold",
+                  pointerEvents: "none",
+                }}
               >
-                <S.Cancle onClick={() => cancle(i.roomid)}>x</S.Cancle>
                 <div>
                   <img src={i.image} alt="프로필"></img>
                   <p>{i.name}</p>

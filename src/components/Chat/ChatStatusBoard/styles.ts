@@ -44,8 +44,10 @@ export const Cancle = styled.h1`
   color: tomato;
   font-size: 14px;
   position: absolute;
-  right: 5px;
-  top: 0px;
+  right: 8px;
+  top: -2px;
+  cursor: pointer;
+  z-index: 10;
   &:hover {
     filter: brightness(0.8);
   }

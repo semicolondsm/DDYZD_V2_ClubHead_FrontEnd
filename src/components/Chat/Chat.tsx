@@ -12,6 +12,7 @@ import {
   getChatList,
   getApplicant,
   changeStatus,
+  getRoomList,
 } from "../../utils/context/actions/chatAction";
 import chatApi from "../../utils/api/chat";
 import * as S from "./styles";
@@ -31,6 +32,7 @@ function Chat({ match: { params } }: { match: any }) {
   useEffect(() => {
     if (socket) {
       socket.on("recv_chat", (message: any) => {
+        console.log(message);
         const room_id: number = Number(
           window.location.pathname.split("/chat/")[1]
         );
@@ -51,6 +53,9 @@ function Chat({ match: { params } }: { match: any }) {
               break;
             case "H3":
               changeStatus(dispatch, { room_id, status: "R" });
+              break;
+            case "H4":
+              changeStatus(dispatch, { room_id, status: "N" });
               break;
             default:
               break;
