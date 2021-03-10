@@ -35,11 +35,31 @@ export const Header = styled.div`
 `;
 export const Bottom = styled.div`
   margin: 10px 0;
+  height: calc(100% - 45px);
   & h3 {
     margin: 0 15px;
   }
 `;
+export const Cancle = styled.h1`
+  color: tomato;
+  font-size: 14px;
+  position: absolute;
+  right: 5px;
+  top: 0px;
+  &:hover {
+    filter: brightness(0.8);
+  }
+`;
 export const List = styled.ul`
+  overflow-y: scroll;
+  height: 100%;
+  &::-webkit-scrollbar-thumb {
+    background: #999999;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
   & a {
     color: black;
     padding: 8px 10px;
@@ -49,6 +69,7 @@ export const List = styled.ul`
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
+    position: relative;
     & p {
       font-size: 13px;
       margin-left: 5px;

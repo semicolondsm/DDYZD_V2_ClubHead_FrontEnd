@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import chat from "../../utils/api/chat";
 import Header from "../Header/Header";
 import ChatBreakDown from "./ChatBreakDown/ChatBreakDown";
@@ -26,6 +26,7 @@ function Chat({ match: { params } }: { match: any }) {
   const [socket, setSocket] = useState<any>(null);
   const [isCon, setIsCon] = useState<boolean>(false);
   const dispatch = useChatDispatch();
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     if (socket) {
@@ -62,9 +63,38 @@ function Chat({ match: { params } }: { match: any }) {
           isread: true,
         };
         refreshLastMessage(dispatch, tempM, room_id);
+        if (sessionStorage.getItem("onf") == "false") {
+          chatApi
+            .getRefresh(room_id)
+            .then((response: any) => {
+              const notification: Notification = new Notification(
+                `${response.data.name}`,
+                {
+                  body: `${response.data.lastmessage}`,
+                  icon: "../../public/images/semicolon.png",
+                }
+              );
+              notification.onclick = () => {
+                return false;
+              };
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
       });
       socket.on("alarm", async ({ room_id }: { room_id: number }) => {
         const response: any = await chatApi.getRefresh(room_id);
+        const notification: Notification = new Notification(
+          `${response.data.name}`,
+          {
+            body: `${response.data.lastmessage}`,
+            icon: "../../public/images/semicolon.png",
+          }
+        );
+        notification.onclick = () => {
+          return false;
+        };
         if (
           response.data.status === "A" ||
           response.data.status === "S" ||
@@ -77,8 +107,11 @@ function Chat({ match: { params } }: { match: any }) {
           date: response.data.lastdate,
           isread: false,
         };
-        getChatList(dispatch, room_id);
         refreshLastMessage(dispatch, message, room_id, response.data);
+        if (timer.current) clearTimeout(timer.current);
+        timer.current = setTimeout(() => {
+          getChatList(dispatch, room_id);
+        }, 1500);
       });
       socket.on("error", (messages: any) => {
         alert(messages.msg);
@@ -97,6 +130,13 @@ function Chat({ match: { params } }: { match: any }) {
   }, [params]);
 
   useEffect(() => {
+    window.onfocus = () => {
+      sessionStorage.setItem("onf", "true");
+    };
+    window.onblur = () => {
+      sessionStorage.setItem("onf", "false");
+    };
+    window.Notification.requestPermission();
     if (isCon) return;
     const Socket = socketIOClient.connect(
       SOCKET_SERVER_URL + localStorage.accessToken,
@@ -116,7 +156,11 @@ function Chat({ match: { params } }: { match: any }) {
     <>
       <Header></Header>
       <S.Wrapper>
-        <ChatStatusBoard club_id={params.id}></ChatStatusBoard>
+        <ChatStatusBoard
+          club_id={params.id}
+          chat_id={params.chatId}
+          socket={socket}
+        ></ChatStatusBoard>
         <ChatRooms club_id={params.id}></ChatRooms>
         {room_token ? (
           <ChatBreakDown

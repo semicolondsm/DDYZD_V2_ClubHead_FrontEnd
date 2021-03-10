@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import club from "../../../utils/api/club";
+import chatApi from "../../../utils/api/chat";
 import ClubIfnoData from "../../interfaces/clubinfo";
 import {
   useChatDispatch,
@@ -9,7 +10,15 @@ import {
 import { getApplicant } from "../../../utils/context/actions/chatAction";
 import * as S from "./styles";
 import Loading from "../../Loading/Loading";
-function ChatStatusBoard({ club_id }: { club_id: number }) {
+function ChatStatusBoard({
+  club_id,
+  chat_id,
+  socket,
+}: {
+  club_id: number;
+  chat_id: number;
+  socket: any;
+}) {
   const [clubInfo, setClubInfo] = useState<ClubIfnoData>();
   const [aplicant, setAplicant] = useState([]);
   const [loading, setLoading] = useState<boolean>(false);
@@ -30,6 +39,16 @@ function ChatStatusBoard({ club_id }: { club_id: number }) {
       state.ApplicantList.data !== null ? state.ApplicantList.data : []
     );
   }, [state]);
+  const cancle = async (room_id: number) => {
+    const answer = window.confirm("지원자를 삭제하시겠습니까 ?");
+    if (!answer) {
+      return;
+    }
+    const room_token = await chatApi.getToken(room_id);
+    socket.emit("helper_cancle_applicant", {
+      room_token,
+    });
+  };
   return (
     <S.Wrapper>
       {loading && <Loading />}
@@ -50,6 +69,7 @@ function ChatStatusBoard({ club_id }: { club_id: number }) {
                 to={path.split("/chat")[0] + `/chat/${i.roomid}`}
                 activeStyle={{ background: "#F5F5F5", fontWeight: "bold" }}
               >
+                <S.Cancle onClick={() => cancle(i.roomid)}>x</S.Cancle>
                 <div>
                   <img src={i.image} alt="프로필"></img>
                   <p>{i.name}</p>

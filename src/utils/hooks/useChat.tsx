@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import { useChatDispatch } from "../../utils/context/chatProvider";
-import {
-  pushMessage,
-  refreshLastMessage,
-  getChatList,
-  changeStatus,
-} from "../context/actions/chatAction";
-import chatApi from "../api/chat";
+import { changeStatus } from "../context/actions/chatAction";
 
 interface ChatData {
   created_at: Date;
@@ -49,7 +43,6 @@ const useChat = (roomId: number, roomToken: string, Socket: any) => {
           room_token: roomToken,
           result: data.result,
         });
-
         break;
       default:
         Socket.emit("send_chat", {

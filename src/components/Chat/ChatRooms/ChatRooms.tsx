@@ -48,6 +48,7 @@ function ChatRooms({ club_id }: { club_id: number }) {
     location: { pathname: path },
   } = history;
   useEffect(() => {
+    if (!club_id) return;
     getRoomList(dispatch, club_id);
   }, [club_id]);
 

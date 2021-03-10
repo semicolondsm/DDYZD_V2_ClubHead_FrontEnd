@@ -5,6 +5,12 @@ import Modals from "./components/Modals/Modals";
 import reportWebVitals from "./reportWebVitals";
 import GlobalStyled from "./styles/GlobalStyled";
 import GlobalProvider from "./utils/context";
+import * as Sentry from "@sentry/react";
+
+Sentry.init({
+  dsn:
+    "https://f4a0f436ed1f48679f44533f509c3e0b@o542644.ingest.sentry.io/5662730",
+});
 
 ReactDOM.render(
   <GlobalProvider>
