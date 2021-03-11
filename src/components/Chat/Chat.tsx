@@ -32,7 +32,6 @@ function Chat({ match: { params } }: { match: any }) {
   useEffect(() => {
     if (socket) {
       socket.on("recv_chat", (message: any) => {
-        console.log(message);
         const room_id: number = Number(
           window.location.pathname.split("/chat/")[1]
         );
@@ -90,16 +89,7 @@ function Chat({ match: { params } }: { match: any }) {
       });
       socket.on("alarm", async ({ room_id }: { room_id: number }) => {
         const response: any = await chatApi.getRefresh(room_id);
-        const notification: Notification = new Notification(
-          `${response.data.name}`,
-          {
-            body: `${response.data.lastmessage}`,
-            icon: "../../public/images/semicolon.png",
-          }
-        );
-        notification.onclick = () => {
-          return false;
-        };
+
         if (
           response.data.status === "A" ||
           response.data.status === "S" ||
@@ -112,7 +102,23 @@ function Chat({ match: { params } }: { match: any }) {
           date: response.data.lastdate,
           isread: false,
         };
-        refreshLastMessage(dispatch, message, room_id, response.data);
+
+        const tempRoomId: number = Number(
+          window.location.pathname.split("/chat/")[1]
+        );
+        if (room_id != tempRoomId) {
+          refreshLastMessage(dispatch, message, room_id, response.data);
+          const notification: Notification = new Notification(
+            `${response.data.name}`,
+            {
+              body: `${response.data.lastmessage}`,
+              icon: "../../public/images/semicolon.png",
+            }
+          );
+          notification.onclick = () => {
+            return false;
+          };
+        }
         if (timer.current) clearTimeout(timer.current);
         timer.current = setTimeout(() => {
           getChatList(dispatch, room_id);
