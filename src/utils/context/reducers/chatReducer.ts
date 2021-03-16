@@ -15,6 +15,7 @@ import {
   REFRESH_LAST_MESSAGE,
   READ_MESSAGE,
   CHANGE_STATUS,
+  DELETE_APPLICANT,
 } from "../types";
 
 const loadingState = {
@@ -190,6 +191,18 @@ export default function (state: any, action: any) {
           loading: false,
           error: false,
         },
+      };
+    case DELETE_APPLICANT:
+      const tempApplicant = state.ApplicantList.data.filter(
+        (applicant: any) => applicant.room_id !== data.id
+      );
+      return {
+        ...state,
+        ApplicantList: {
+          data: tempApplicant,
+        },
+        loading: false,
+        error: false,
       };
     default:
       throw new Error(`Unhanded action type: ${action.type}`);

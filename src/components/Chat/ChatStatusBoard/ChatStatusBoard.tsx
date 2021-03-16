@@ -7,7 +7,10 @@ import {
   useChatDispatch,
   useChatState,
 } from "../../../utils/context/chatProvider";
-import { getApplicant } from "../../../utils/context/actions/chatAction";
+import {
+  getApplicant,
+  deleteApplicant,
+} from "../../../utils/context/actions/chatAction";
 import * as S from "./styles";
 import Loading from "../../Loading/Loading";
 function ChatStatusBoard({
@@ -48,6 +51,7 @@ function ChatStatusBoard({
     socket.emit("helper_cancel_applicant", {
       room_token: room_token.data.room_token,
     });
+    deleteApplicant(dispatch, room_id);
   };
   return (
     <S.Wrapper>

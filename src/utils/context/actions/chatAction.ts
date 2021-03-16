@@ -15,6 +15,7 @@ import {
   REFRESH_LAST_MESSAGE,
   READ_MESSAGE,
   CHANGE_STATUS,
+  DELETE_APPLICANT,
 } from "../types";
 
 import chatApi from "../../api/chat";
@@ -25,7 +26,6 @@ export async function getApplicant(dispatch: any, club_id: number) {
   dispatch({ type: GET_APPLICANT_LIST });
   try {
     const response = await chatApi.getApplicant(club_id);
-    console.log(response);
     dispatch({ type: GET_APPLICANT_LIST_SUCCESS, data: response.data });
   } catch (err) {
     dispatch({ type: GET_APPLICANT_LIST_ERROR, error: err });
@@ -48,7 +48,10 @@ export async function getChatList(dispatch: any, chat_id: number) {
 export async function getRoomList(dispatch: any, club_id: number) {
   dispatch({ type: GET_ROOM_LIST });
   try {
-    const response = await chatApi.getUserList(club_id);
+    let response = await chatApi.getUserList(club_id);
+    response.data.rooms = response.data.rooms.filter(
+      (value: any) => value.lastmessage !== null
+    );
     dispatch({ type: GET_ROOM_LIST_SUCCESS, data: response.data });
   } catch (err) {
     dispatch({ type: GET_ROOM_LIST_ERROR, error: err });
@@ -97,4 +100,13 @@ interface statusType {
 
 export function changeStatus(dispatch: any, data: statusType) {
   dispatch({ type: CHANGE_STATUS, data });
+}
+
+export function deleteApplicant(dispatch: any, data: number) {
+  dispatch({
+    type: DELETE_APPLICANT,
+    data: {
+      id: data,
+    },
+  });
 }
