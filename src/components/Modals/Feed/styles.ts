@@ -16,6 +16,11 @@ export const FeedWrapper=styled.div`
         padding: 15px;
         margin-bottom: 10px;
     }
+    & > p{
+        font-size: 12px;
+        margin-bottom: 5px;
+        color:red;
+    }
     & textarea{
         height: 200px;
         border: none;
