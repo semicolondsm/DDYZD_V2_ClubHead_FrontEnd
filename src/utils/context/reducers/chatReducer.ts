@@ -194,7 +194,7 @@ export default function (state: any, action: any) {
       };
     case DELETE_APPLICANT:
       const tempApplicant = state.ApplicantList.data.filter(
-        (applicant: any) => applicant.room_id !== data.id
+        (applicant: any) => applicant.roomid !== action.data.id
       );
       return {
         ...state,

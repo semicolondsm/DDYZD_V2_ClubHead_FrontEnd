@@ -44,9 +44,7 @@ function ChatStatusBoard({
   }, [state]);
   const cancle = async (room_id: number) => {
     const answer = window.confirm("지원자를 삭제하시겠습니까 ?");
-    if (!answer) {
-      return;
-    }
+    if (!answer) return;
     const room_token = await chatApi.getToken(room_id);
     socket.emit("helper_cancel_applicant", {
       room_token: room_token.data.room_token,
