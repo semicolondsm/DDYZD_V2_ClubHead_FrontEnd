@@ -70,6 +70,7 @@ function Feed({club_id} : {club_id : number}){
     return(
         <S.FeedWrapper>
             <h3>게시물 만들기</h3>
+            <p>권장이미지 규격 630x630 이상</p>
             <textarea onChange={(e)=>setContent(e.target.value)} placeholder="이곳을 눌러 새로운 게시물을 등록해보세요."></textarea>
             <input accept=".png, .jpg, .HEIC" onChange={fileHandler} type="file" multiple></input>
             {
