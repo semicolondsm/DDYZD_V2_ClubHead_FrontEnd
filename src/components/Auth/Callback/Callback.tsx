@@ -21,11 +21,11 @@ export const onSilentRefresh = () => {
 function Callback(params: any){
     const onLogin = () => {
         const code=String(params.location.search);
-        auth.postToken(code.split("?code=")[1].split("&state=")[0])
-        .then((res)=>auth.getUsersToken(res.data['access-token']).then(async (res)=>{ await OnLoginSuccess(res); window.location.href="/"}))
-        /*auth.getToken(code.split("?code=")[1].split("&state=")[0])
+        // auth.postToken(code.split("?code=")[1].split("&state=")[0])
+        // .then((res)=>auth.getUsersToken(res.data['access-token']).then(async (res)=>{ await OnLoginSuccess(res); window.location.href="/"}))
+        auth.getToken(code.split("?code=")[1].split("&state=")[0])
         .then(async (res)=>{ await OnLoginSuccess(res); window.location.href="/"})
-        .catch((e)=>console.error(e))*/
+        .catch((e)=>console.error(e))
     }
     useEffect(()=>{
         onLogin()
