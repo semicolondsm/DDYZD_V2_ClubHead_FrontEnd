@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@sentry/react": "^6.2.1",
-    "@sentry/tracing": "^6.2.1",
+    "@sentry/tracing": "^6.9.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
